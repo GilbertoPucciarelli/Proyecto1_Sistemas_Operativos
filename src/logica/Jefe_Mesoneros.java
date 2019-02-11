@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package logica;
+import interfaz.Interfaz;
 
 /**
  *
@@ -11,8 +12,16 @@ package logica;
  */
 public class Jefe_Mesoneros extends Thread{
     
-    public Jefe_Mesoneros(){
-        
+    private int contador;
+    private float hora;
+    private boolean descansando;
+    Interfaz interfaz;
+    
+    public Jefe_Mesoneros(Interfaz interfaz){
+        this.contador = 8;
+        this.hora = (float) 0.05;
+        this.descansando = true;
+        this.interfaz = interfaz;
     }
     
     @Override

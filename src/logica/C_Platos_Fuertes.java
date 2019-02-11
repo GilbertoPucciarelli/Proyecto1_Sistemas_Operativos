@@ -5,18 +5,21 @@
  */
 package logica;
 
+import interfaz.Interfaz;
+        
 /**
  *
  * @author Gilberto
  */
 public class C_Platos_Fuertes extends Cocineros{
     
-    public C_Platos_Fuertes(){
+    public C_Platos_Fuertes(Interfaz interfaz){
         super();
         hora = (float) 0.33;
         mesones = 30;
         cantidadInicial = 2;
         ejecutando = false;
+        this.interfaz = interfaz;        
     }
     
     @Override

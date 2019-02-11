@@ -5,18 +5,21 @@
  */
 package logica;
 
+import interfaz.Interfaz;
+
 /**
  *
  * @author Gilberto
  */
 public class C_Entradas extends Cocineros{
     
-    public C_Entradas(){
+    public C_Entradas(Interfaz interfaz){
         super();
         hora = (float) 0.25;
         mesones = 20;
         cantidadInicial = 1;
         ejecutando = false;
+        this.interfaz = interfaz;
     }
     
     @Override

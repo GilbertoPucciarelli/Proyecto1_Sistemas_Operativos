@@ -5,14 +5,26 @@
  */
 package logica;
 
+import interfaz.Interfaz;
+        
 /**
  *
  * @author Gilberto
  */
 public class Mesoneros extends Thread{
     
-    public Mesoneros(){
-        
+    private float hora;
+    private int ordenes;
+    private int cantidadInicial;
+    private boolean ejecutando;
+    Interfaz interfaz;
+    
+    public Mesoneros(Interfaz interfaz){
+        this.hora = (float) 0.15;
+        this.ordenes = 0;
+        this.cantidadInicial = 0;
+        this.ejecutando = false;
+        this.interfaz = interfaz;
     }
     
     @Override
