@@ -6,6 +6,8 @@
 package logica;
 
 import interfaz.Interfaz;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,6 +27,61 @@ public class C_Entradas extends Cocineros{
     @Override
     public void run(){
         
+        synchronized (this) {
+            do {
+
+                if (ejecutando == false) {
+
+                    try {
+                        this.wait();
+
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+                try {
+                    Thread.sleep((long) (hora * 1000));
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } while (ejecutando);
+
+        }
     }
+
+    public float getHora() {
+        return hora;
+    }
+
+    public void setHora(float hora) {
+        this.hora = hora;
+    }
+
+    public int getMesones() {
+        return mesones;
+    }
+
+    public void setMesones(int mesones) {
+        this.mesones = mesones;
+    }
+
+    public int getCantidadInicial() {
+        return cantidadInicial;
+    }
+
+    public void setCantidadInicial(int cantidadInicial) {
+        this.cantidadInicial = cantidadInicial;
+    }
+
+    public boolean isEjecutando() {
+        return ejecutando;
+    }
+
+    public void setEjecutando(boolean ejecutando) {
+        this.ejecutando = ejecutando;
+    }
+    
     
 }
