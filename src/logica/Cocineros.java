@@ -5,6 +5,8 @@
  */
 package logica;
 
+import interfaz.Interfaz;
+
 /**
  *
  * @author Gilberto
@@ -15,5 +17,5 @@ public abstract class Cocineros extends Thread{
     protected int mesones;
     protected int cantidadInicial;
     protected volatile boolean ejecutando;
-    
+    Interfaz interfaz;
 }

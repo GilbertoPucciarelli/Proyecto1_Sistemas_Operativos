@@ -5,14 +5,23 @@
  */
 package logica;
 
+import interfaz.Interfaz;
+import java.util.Random;
 /**
  *
  * @author Gilberto
  */
 public class Gerente extends Thread{
     
-    public Gerente(){
-        
+    private float hora;
+    private boolean descansando;
+    Interfaz interfaz;
+    Random r;
+    
+    public Gerente(Interfaz interfaz){
+        this.hora = (float) 0.1;
+        this.interfaz = interfaz;
+        this.descansando = true;
     }
     
     @Override
