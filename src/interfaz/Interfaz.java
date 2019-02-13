@@ -5,19 +5,35 @@
  */
 package interfaz;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import logica.Aplicacion;
+
 /**
  *
  * @author Gilberto
  */
 public class Interfaz extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Interfaz
-     */
+    Aplicacion app = new Aplicacion(this);
+    private boolean cantidad1 = true;
+    private boolean cantidad2 = true;
+    
+    
     public Interfaz() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(false);
+        jButton4.setEnabled(false);
+        jButton5.setEnabled(false);
+        jButton6.setEnabled(false);
+        jButton7.setEnabled(false);
+        jButton8.setEnabled(false);
+        jButton9.setEnabled(false);
+        jButton10.setEnabled(false);
+        jButton11.setEnabled(false);
     }
 
     /**
@@ -410,11 +426,11 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -462,39 +478,169 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try{
+        app.cargar();
+        }catch(IOException | NumberFormatException ex){
+        Logger.getLogger(Aplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(app.getTime() <= 0){
+            cantidad1 = false;
+        }
+        if(app.getCmesonE() > 20){
+            cantidad1 = false;
+        }
+        if(app.getCmesonPF() > 30){
+            cantidad1 = false;
+        }
+        if(app.getCmesonP() > 10){
+            cantidad1 = false;
+        }
+        if(app.getCantICE() < 1 || app.getCantICE() > 3){
+            cantidad1 = false;
+        }
+        if(app.getCantICPF() < 2 || app.getCantICPF() > 4){
+            cantidad1 = false;
+        }
+        if(app.getCantICP() < 0 || app.getCantICP() > 2){
+            cantidad1 = false;
+        }
+        if(app.getCantMCE() < 1 || app.getCantMCE() > 3){
+            cantidad1 = false;
+        }
+        if(app.getCantMCPF() < 2 || app.getCantMCPF() > 4){
+            cantidad1 = false;
+        }
+        if(app.getCantMCP() < 0 || app.getCantMCP() > 2){
+            cantidad1 = false;
+        }
+        if(app.getCantIM() < 0 || app.getCantIM() > 6){
+            cantidad1 = false;
+        }
+        if(app.getCantMM() < 0 || app.getCantMM() > 6){
+            cantidad1 = false;
+        }
+        
+        if(app.getCantICE() > app.getCantMCE()){
+            cantidad2 = false;
+        }
+        if(app.getCantICPF() > app.getCantMCPF()){
+            cantidad2 = false;
+        }
+        if(app.getCantICP() > app.getCantMCP()){
+            cantidad2 = false;
+        }
+        if(app.getCantIM() > app.getCantMM()){
+            cantidad2 = false;
+        }
+        
+        if(cantidad1 == false || cantidad2 == false){
+        if(cantidad1 == false){
+            System.out.println("Datos introducidos incorrectos");
+        }
+        if(cantidad2 == false){
+            System.out.println("Cantidad inicial mayor a cantidad final");
+        }
+        }else{
+        jTextField1.setText(String.valueOf(app.getCantICE()));
+        jTextField2.setText(String.valueOf(app.getCantICPF()));
+        jTextField3.setText(String.valueOf(app.getCantICP()));
+        jTextField5.setText(String.valueOf(app.getCantIM()));
+        if(app.getCantICP() != 0){
+        jButton9.setEnabled(true);
+        }
+        jButton2.setEnabled(true);
+        jButton3.setEnabled(true);
+        if(app.getCantICE() != app.getCantMCE()){
+        jButton4.setEnabled(true);
+        }
+        if(app.getCantICPF() != app.getCantMCPF()){
+        jButton5.setEnabled(true);
+        }
+        if(app.getCantICP() != app.getCantMCP()){
+        jButton6.setEnabled(true);
+        }
+        jButton7.setEnabled(true);
+        jButton8.setEnabled(true);
+        if(app.getCantIM() != app.getCantMM()){
+        jButton10.setEnabled(true);
+        }
+        if(app.getCantIM() != 0){
+        jButton11.setEnabled(true);
+        }
+        jButton1.setEnabled(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+    app.setCantICE(app.getCantICE() + 1);
+    jTextField1.setText(String.valueOf(app.getCantICE()));
+    if(app.getCantICE() == app.getCantMCE()){
+    jButton4.setEnabled(false);
+    }
+    jButton7.setEnabled(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+    app.setCantICPF(app.getCantICPF() + 1);
+    jTextField2.setText(String.valueOf(app.getCantICPF()));
+    if(app.getCantICPF() == app.getCantMCPF()){
+    jButton5.setEnabled(false);
+    }
+    jButton8.setEnabled(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+    app.setCantICP(app.getCantICP() + 1);
+    jTextField3.setText(String.valueOf(app.getCantICP()));
+    if(app.getCantICP() == app.getCantMCP()){
+    jButton6.setEnabled(false);
+    }
+    jButton9.setEnabled(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+    app.setCantICE(app.getCantICE() - 1);
+    jTextField1.setText(String.valueOf(app.getCantICE()));
+    if(app.getCantICE() == 0){
+    jButton7.setEnabled(false);
+    }
+    jButton4.setEnabled(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+    app.setCantICPF(app.getCantICPF() - 1);
+    jTextField2.setText(String.valueOf(app.getCantICPF()));
+    if(app.getCantICPF() == 0){
+    jButton8.setEnabled(false);
+    }
+    jButton5.setEnabled(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+    app.setCantICP(app.getCantICP() - 1);
+    jTextField3.setText(String.valueOf(app.getCantICP()));
+    if(app.getCantICP() == 0){
+    jButton9.setEnabled(false);
+    }
+    jButton6.setEnabled(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+    app.setCantIM(app.getCantIM() + 1);
+    jTextField5.setText(String.valueOf(app.getCantIM()));
+    if(app.getCantIM() == app.getCantMM()){
+    jButton10.setEnabled(false);
+    }
+    jButton11.setEnabled(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+    app.setCantIM(app.getCantIM() - 1);
+    jTextField5.setText(String.valueOf(app.getCantIM()));
+    if(app.getCantIM() == 0){
+    jButton11.setEnabled(false);
+    }
+    jButton10.setEnabled(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
