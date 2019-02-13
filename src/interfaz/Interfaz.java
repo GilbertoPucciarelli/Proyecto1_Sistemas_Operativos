@@ -16,11 +16,25 @@ import logica.Aplicacion;
  */
 public class Interfaz extends javax.swing.JFrame {
 
-    Aplicacion app = new Aplicacion(this);
+    /**
+     * Creates new form Interfaz
+     */
+    
+    
+    //ATRIBUTOS
+    Aplicacion aplicacion = new Aplicacion(this);
     private boolean cantidad1 = true;
     private boolean cantidad2 = true;
+
+    public Aplicacion getAplicacion() {
+        return aplicacion;
+    }
+
+    public void setAplicacion(Aplicacion aplicacion) {
+        this.aplicacion = aplicacion;
+    }
     
-    
+    //CONSTRUCTOR
     public Interfaz() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -52,16 +66,16 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jTextFieldCocinerosEntradas = new javax.swing.JTextField();
+        jTextFieldCocinerosFuertes = new javax.swing.JTextField();
+        jTextFieldCocinerosPostres = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
+        jTextFieldMesoneros = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -75,7 +89,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        jTextFieldHoras = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -114,21 +128,21 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel4.setText("Cocineros de Postres");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldCocinerosEntradas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldCocinerosEntradasActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldCocinerosFuertes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jTextFieldCocinerosFuertesActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldCocinerosPostres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jTextFieldCocinerosPostresActionPerformed(evt);
             }
         });
 
@@ -180,9 +194,9 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldMesoneros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                jTextFieldMesonerosActionPerformed(evt);
             }
         });
 
@@ -238,9 +252,9 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldHoras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
+                jTextFieldHorasActionPerformed(evt);
             }
         });
 
@@ -287,7 +301,7 @@ public class Interfaz extends javax.swing.JFrame {
                                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
@@ -309,7 +323,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldMesoneros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,19 +332,19 @@ public class Interfaz extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldCocinerosEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton7))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldCocinerosFuertes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton8))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldCocinerosPostres, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -367,7 +381,7 @@ public class Interfaz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(8, 8, 8)
@@ -390,20 +404,20 @@ public class Interfaz extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldCocinerosEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton4)
                             .addComponent(jButton7)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldCocinerosFuertes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton5)
                             .addComponent(jButton8)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldCocinerosPostres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButton6)
                                 .addComponent(jButton9))
                             .addComponent(jLabel4))))
@@ -412,7 +426,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMesoneros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10)
                     .addComponent(jButton11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -425,29 +439,40 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //BOTON SIMULAR 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
+         aplicacion.setEjecutando(true);
+        
+        try {
+            aplicacion.simular();
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        aplicacion.setIniciado(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldCocinerosEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCocinerosEntradasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldCocinerosEntradasActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextFieldCocinerosFuertesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCocinerosFuertesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_jTextFieldCocinerosFuertesActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTextFieldCocinerosPostresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCocinerosPostresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTextFieldCocinerosPostresActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void jTextFieldMesonerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMesonerosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_jTextFieldMesonerosActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
@@ -473,63 +498,72 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField10ActionPerformed
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void jTextFieldHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldHorasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_jTextFieldHorasActionPerformed
 
+    //BOTON CARGAR DATOS
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-        app.cargar();
-        }catch(IOException | NumberFormatException ex){
-        Logger.getLogger(Aplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        
+        //SE CARGAN LOS DATOS
+        try {
+            aplicacion.cargarDatos();
+        } catch (IOException | NumberFormatException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(app.getTime() <= 0){
-            cantidad1 = false;
-        }
-        if(app.getCmesonE() > 20){
-            cantidad1 = false;
-        }
-        if(app.getCmesonPF() > 30){
-            cantidad1 = false;
-        }
-        if(app.getCmesonP() > 10){
-            cantidad1 = false;
-        }
-        if(app.getCantICE() < 1 || app.getCantICE() > 3){
-            cantidad1 = false;
-        }
-        if(app.getCantICPF() < 2 || app.getCantICPF() > 4){
-            cantidad1 = false;
-        }
-        if(app.getCantICP() < 0 || app.getCantICP() > 2){
-            cantidad1 = false;
-        }
-        if(app.getCantMCE() < 1 || app.getCantMCE() > 3){
-            cantidad1 = false;
-        }
-        if(app.getCantMCPF() < 2 || app.getCantMCPF() > 4){
-            cantidad1 = false;
-        }
-        if(app.getCantMCP() < 0 || app.getCantMCP() > 2){
-            cantidad1 = false;
-        }
-        if(app.getCantIM() < 0 || app.getCantIM() > 6){
-            cantidad1 = false;
-        }
-        if(app.getCantMM() < 0 || app.getCantMM() > 6){
+        
+        //VALIDACIONES
+        if(aplicacion.getHoras() <= 0){
             cantidad1 = false;
         }
         
-        if(app.getCantICE() > app.getCantMCE()){
+        if(aplicacion.getMaximoEntradas() > 20){
+            cantidad1 = false;
+        }
+        
+        if(aplicacion.getMaximoFuertes() > 30){
+            cantidad1 = false;
+        }
+        
+        if(aplicacion.getMaximoPostres() > 10){
+            cantidad1 = false;
+        }
+        
+        if(aplicacion.getInicialEntradas() < 1 || aplicacion.getInicialEntradas() > 3){
+            cantidad1 = false;
+        }
+        if(aplicacion.getInicialFuertes() < 2 || aplicacion.getInicialFuertes() > 4){
+            cantidad1 = false;
+        }
+        if(aplicacion.getInicialPostres() < 0 || aplicacion.getInicialPostres() > 2){
+            cantidad1 = false;
+        }
+        if(aplicacion.getMaximoEntradas() < 1 || aplicacion.getMaximoEntradas() > 3){
+            cantidad1 = false;
+        }
+        if(aplicacion.getMaximoFuertes() < 2 || aplicacion.getMaximoFuertes() > 4){
+            cantidad1 = false;
+        }
+        if(aplicacion.getMaximoPostres() < 0 || aplicacion.getMaximoPostres() > 2){
+            cantidad1 = false;
+        }
+        if(aplicacion.getInicialMesoneros() < 0 || aplicacion.getInicialMesoneros() > 6){
+            cantidad1 = false;
+        }
+        if(aplicacion.getMaximoMesoneros() < 0 || aplicacion.getMaximoMesoneros() > 6){
+            cantidad1 = false;
+        }
+        
+        if(aplicacion.getInicialEntradas() > aplicacion.getMaximoEntradas()){
             cantidad2 = false;
         }
-        if(app.getCantICPF() > app.getCantMCPF()){
+        if(aplicacion.getInicialFuertes() > aplicacion.getMaximoFuertes()){
             cantidad2 = false;
         }
-        if(app.getCantICP() > app.getCantMCP()){
+        if(aplicacion.getInicialPostres() > aplicacion.getMaximoPostres()){
             cantidad2 = false;
         }
-        if(app.getCantIM() > app.getCantMM()){
+        if(aplicacion.getInicialMesoneros() > aplicacion.getMaximoMesoneros()){
             cantidad2 = false;
         }
         
@@ -541,106 +575,127 @@ public class Interfaz extends javax.swing.JFrame {
             System.out.println("Cantidad inicial mayor a cantidad final");
         }
         }else{
-        jTextField1.setText(String.valueOf(app.getCantICE()));
-        jTextField2.setText(String.valueOf(app.getCantICPF()));
-        jTextField3.setText(String.valueOf(app.getCantICP()));
-        jTextField5.setText(String.valueOf(app.getCantIM()));
-        if(app.getCantICP() != 0){
+            
+        jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
+        jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
+        jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
+        jTextFieldHoras.setText(String.valueOf(aplicacion.getHoras()));
+        jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
+        
+        if(aplicacion.getInicialPostres() != 0){
         jButton9.setEnabled(true);
         }
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
-        if(app.getCantICE() != app.getCantMCE()){
+        if(aplicacion.getInicialEntradas() != aplicacion.getMaximoEntradas()){
         jButton4.setEnabled(true);
         }
-        if(app.getCantICPF() != app.getCantMCPF()){
+        if(aplicacion.getInicialFuertes() != aplicacion.getMaximoFuertes()){
         jButton5.setEnabled(true);
         }
-        if(app.getCantICP() != app.getCantMCP()){
+        if(aplicacion.getInicialPostres() != aplicacion.getMaximoPostres()){
         jButton6.setEnabled(true);
         }
         jButton7.setEnabled(true);
         jButton8.setEnabled(true);
-        if(app.getCantIM() != app.getCantMM()){
+        if(aplicacion.getInicialMesoneros() != aplicacion.getMaximoMesoneros()){
         jButton10.setEnabled(true);
         }
-        if(app.getCantIM() != 0){
+        if(aplicacion.getInicialMesoneros() != 0){
         jButton11.setEnabled(true);
         }
         jButton1.setEnabled(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //BOTON CONTRATAR COCINEROS ENTRADAS
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    app.setCantICE(app.getCantICE() + 1);
-    jTextField1.setText(String.valueOf(app.getCantICE()));
-    if(app.getCantICE() == app.getCantMCE()){
-    jButton4.setEnabled(false);
-    }
-    jButton7.setEnabled(true);
+        
+        aplicacion.setInicialEntradas(aplicacion.getInicialEntradas() + 1);
+        jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
+        
+        if(aplicacion.getInicialEntradas() == aplicacion.getMaximoEntradas()){
+        jButton4.setEnabled(false);
+        }
+        jButton7.setEnabled(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    //BOTON CONTRATAR COCINEROS PLATOS FUERTES
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-    app.setCantICPF(app.getCantICPF() + 1);
-    jTextField2.setText(String.valueOf(app.getCantICPF()));
-    if(app.getCantICPF() == app.getCantMCPF()){
-    jButton5.setEnabled(false);
-    }
-    jButton8.setEnabled(true);
+        
+        aplicacion.setInicialFuertes(aplicacion.getInicialFuertes() + 1);
+        jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
+        
+        if(aplicacion.getInicialFuertes() == aplicacion.getMaximoFuertes()){
+        jButton5.setEnabled(false);
+        }
+        jButton8.setEnabled(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    //BOTON CONTRATAR COCINEROS POSTRES
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-    app.setCantICP(app.getCantICP() + 1);
-    jTextField3.setText(String.valueOf(app.getCantICP()));
-    if(app.getCantICP() == app.getCantMCP()){
-    jButton6.setEnabled(false);
-    }
-    jButton9.setEnabled(true);
+        
+        aplicacion.setInicialPostres(aplicacion.getInicialPostres() + 1);
+        jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
+        if(aplicacion.getInicialPostres() == aplicacion.getMaximoPostres()){
+        jButton6.setEnabled(false);
+        }
+        jButton9.setEnabled(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    //BOTON DESPEDIR COCINEROS ENTRADAS
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-    app.setCantICE(app.getCantICE() - 1);
-    jTextField1.setText(String.valueOf(app.getCantICE()));
-    if(app.getCantICE() == 0){
-    jButton7.setEnabled(false);
-    }
-    jButton4.setEnabled(true);
+        
+        aplicacion.setInicialEntradas(aplicacion.getInicialEntradas() - 1);
+        jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
+        if(aplicacion.getInicialEntradas() == 0){
+        jButton7.setEnabled(false);
+        }
+        jButton4.setEnabled(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    //BOTON DESPEDIR COCINEROS PLATOS FUERTES
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-    app.setCantICPF(app.getCantICPF() - 1);
-    jTextField2.setText(String.valueOf(app.getCantICPF()));
-    if(app.getCantICPF() == 0){
-    jButton8.setEnabled(false);
-    }
-    jButton5.setEnabled(true);
+        
+        aplicacion.setInicialFuertes(aplicacion.getInicialFuertes() - 1);
+        jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
+        if(aplicacion.getInicialFuertes() == 0){
+        jButton8.setEnabled(false);
+        }
+        jButton5.setEnabled(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    //BOTON DESPEDIR COCINEROS POSTRES
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-    app.setCantICP(app.getCantICP() - 1);
-    jTextField3.setText(String.valueOf(app.getCantICP()));
-    if(app.getCantICP() == 0){
-    jButton9.setEnabled(false);
-    }
-    jButton6.setEnabled(true);
+        
+        aplicacion.setInicialPostres(aplicacion.getInicialPostres() - 1);
+        jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
+        if(aplicacion.getInicialPostres() == 0){
+        jButton9.setEnabled(false);
+        }
+        jButton6.setEnabled(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    //BOTON CONTRATAR MESONEROS
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-    app.setCantIM(app.getCantIM() + 1);
-    jTextField5.setText(String.valueOf(app.getCantIM()));
-    if(app.getCantIM() == app.getCantMM()){
-    jButton10.setEnabled(false);
-    }
-    jButton11.setEnabled(true);
+        
+        aplicacion.setInicialMesoneros(aplicacion.getInicialMesoneros() + 1);
+        jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
+        if(aplicacion.getInicialMesoneros() == aplicacion.getMaximoMesoneros()){
+        jButton10.setEnabled(false);
+        }
+        jButton11.setEnabled(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    //BOTON DESPEDIR MESONEROS
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-    app.setCantIM(app.getCantIM() - 1);
-    jTextField5.setText(String.valueOf(app.getCantIM()));
-    if(app.getCantIM() == 0){
-    jButton11.setEnabled(false);
-    }
-    jButton10.setEnabled(true);
+        
+        aplicacion.setInicialMesoneros(aplicacion.getInicialMesoneros() - 1);
+        jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
+        if(aplicacion.getInicialMesoneros() == 0){
+        jButton11.setEnabled(false);
+        }
+        jButton10.setEnabled(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
@@ -704,16 +759,16 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextFieldCocinerosEntradas;
+    private javax.swing.JTextField jTextFieldCocinerosFuertes;
+    private javax.swing.JTextField jTextFieldCocinerosPostres;
+    private javax.swing.JTextField jTextFieldHoras;
+    private javax.swing.JTextField jTextFieldMesoneros;
     // End of variables declaration//GEN-END:variables
 }

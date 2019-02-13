@@ -26,7 +26,7 @@ public class C_Entradas extends Cocineros{
     
     @Override
     public void run(){
-        
+        System.out.println("entro x3");
         synchronized (this) {
             do {
 
@@ -42,6 +42,7 @@ public class C_Entradas extends Cocineros{
 
                 try {
                     Thread.sleep((long) (hora * 1000));
+                    System.out.println("Cocinando...");
                 } catch (InterruptedException ex) {
                     Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                 }

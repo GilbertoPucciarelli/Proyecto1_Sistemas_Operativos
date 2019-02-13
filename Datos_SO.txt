@@ -1,0 +1,24 @@
+Tiempo de trabajo (en segundos):
+8
+Capacidad de entradas:
+20
+Capacidad de platos fuertes:
+30
+Capacidad de postres:
+10
+Cantidad inicial de cocineros de entradas:
+1
+Cantidad máxima de cocineros de entradas:
+3
+Cantidad inicial de cocineros de platos fuertes:
+2
+Cantidad máxima de cocineros de platos fuertes:
+4
+Cantidad inicial de cocineros de postres:
+1
+Cantidad máxima de cocineros de postres:
+2
+Cantidad inicial de mesoneros:
+1
+Cantidad máxima de mesoneros: 
+6
