@@ -58,7 +58,7 @@ public class Mesoneros extends Thread{
                         Logger.getLogger(Mesoneros.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                System.out.println("Buenas noches");
+                System.out.println("Mesonero: Verficando");
                 if ((platosentrada.getPlatosProducidos() > 3) && (platosfuertes.getPlatosProducidos() > 2) && (platospostres.getPlatosProducidos() > 1)) {
                     try {
                         racesemaphore.acquire();
