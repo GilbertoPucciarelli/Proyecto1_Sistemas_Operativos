@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -38,6 +39,9 @@ public class Aplicacion extends Thread{
     int CapacidadEntradas[] = new int[capacidadEntradas];
     int CapacidadFuertes[] = new int[capacidadFuertes];
     int CapacidadPostres[] = new int[capacidadPostres];
+    private Mesones mesonesEntradas;
+    private Mesones mesonesPlatosFuertes;
+    private Mesones mesonesPostres;
     private C_Entradas[] C_Entradas;
     private C_Platos_Fuertes[] C_Platos_Fuertes;
     private C_Postres[] C_Postres;
@@ -45,10 +49,19 @@ public class Aplicacion extends Thread{
     private Jefe_Mesoneros jefeMesoneros;
     private boolean iniciado;
     Interfaz interfaz;
+    private Mesoneros[] Mesoneros;
+    private Semaphore semaforoE;
+    private Semaphore semaforoPF;
+    private Semaphore semaforoP;
+    private Semaphore racesemaphore;
     
     public Aplicacion(Interfaz interfaz){
         this.interfaz = interfaz;
         this.ejecutando = false;
+        this.semaforoE = new Semaphore(1);
+        this.semaforoPF = new Semaphore(1);
+        this.semaforoP = new Semaphore(1);
+        this.racesemaphore = new Semaphore(1);
     }
 
     public int getHoras() {
@@ -228,8 +241,20 @@ public class Aplicacion extends Thread{
     @Override
     public void run(){
         
+        for (int i = 0; i < maximoMesoneros; i++) {
+            Mesoneros[i].start();
+        }
+        
         for (int i = 0; i < maximoEntradas; i++) {
             C_Entradas[i].start();
+        }
+        
+        for (int i = 0; i < maximoFuertes; i++) {
+            C_Platos_Fuertes[i].start();
+        }
+        
+        for (int i = 0; i < maximoPostres; i++) {
+            C_Postres[i].start();
         }
         
         synchronized (this) {
@@ -266,9 +291,20 @@ public class Aplicacion extends Thread{
                 notify();
             }
             
+            for (int i = 0; i < inicialMesoneros; i++) {
+            Mesoneros[i].setEjecutando(true);
+            }
+            
             for (int i = 0; i < inicialEntradas; i++) {
                 C_Entradas[i].setEjecutando(true);
-                System.out.println("entro");
+            }
+            
+            for (int i = 0; i < inicialFuertes; i++) {
+                C_Platos_Fuertes[i].setEjecutando(true);
+            }
+            
+            for (int i = 0; i < inicialPostres; i++) {
+                C_Postres[i].setEjecutando(true);
             }
             
         }else{
@@ -317,17 +353,29 @@ public class Aplicacion extends Thread{
         C_Entradas = new C_Entradas[maximoEntradas];
         C_Platos_Fuertes = new C_Platos_Fuertes[maximoFuertes];
         C_Postres = new C_Postres[maximoPostres];
+        mesonesEntradas = new Mesones(capacidadEntradas);
+        mesonesPlatosFuertes = new Mesones(capacidadFuertes);
+        mesonesPostres = new Mesones(capacidadPostres);
+        Mesoneros = new Mesoneros[maximoMesoneros];
+        
+        for (int i = 0; i < maximoMesoneros; i++) {
+        Mesoneros[i] = new Mesoneros(interfaz,semaforoE,semaforoPF,semaforoP,racesemaphore,mesonesEntradas,mesonesPlatosFuertes,mesonesPostres);
+        }
         
         for (int i = 0; i < maximoEntradas; i++) {
-            C_Entradas[i] = new C_Entradas(interfaz);
+            C_Entradas[i] = new C_Entradas(interfaz, mesonesEntradas);
         }
         
         for (int i = 0; i < maximoFuertes; i++) {
-            C_Platos_Fuertes[i] = new C_Platos_Fuertes(interfaz);
+            C_Platos_Fuertes[i] = new C_Platos_Fuertes(interfaz, mesonesPlatosFuertes);
         }
         
         for (int i = 0; i < maximoPostres; i++) {
-            C_Postres[i] = new C_Postres(interfaz);
+            C_Postres[i] = new C_Postres(interfaz, mesonesPostres);
+        }
+        
+        for (int i = 0; i < inicialMesoneros; i++) {
+            Mesoneros[i].setEjecutando(true);
         }
         
         for (int i = 0; i < inicialEntradas; i++) {

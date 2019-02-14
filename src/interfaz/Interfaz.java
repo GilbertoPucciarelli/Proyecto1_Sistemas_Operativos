@@ -8,6 +8,7 @@ package interfaz;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextField;
 import logica.Aplicacion;
 
 /**
@@ -502,6 +503,94 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldHorasActionPerformed
 
+    public JTextField getjTextField10() {
+        return jTextField10;
+    }
+
+    public void setjTextField10(JTextField jTextField10) {
+        this.jTextField10 = jTextField10;
+    }
+
+    public JTextField getjTextField4() {
+        return jTextField4;
+    }
+
+    public void setjTextField4(JTextField jTextField4) {
+        this.jTextField4 = jTextField4;
+    }
+
+    public JTextField getjTextField6() {
+        return jTextField6;
+    }
+
+    public void setjTextField6(JTextField jTextField6) {
+        this.jTextField6 = jTextField6;
+    }
+
+    public JTextField getjTextField7() {
+        return jTextField7;
+    }
+
+    public void setjTextField7(JTextField jTextField7) {
+        this.jTextField7 = jTextField7;
+    }
+
+    public JTextField getjTextField8() {
+        return jTextField8;
+    }
+
+    public void setjTextField8(JTextField jTextField8) {
+        this.jTextField8 = jTextField8;
+    }
+
+    public JTextField getjTextField9() {
+        return jTextField9;
+    }
+
+    public void setjTextField9(JTextField jTextField9) {
+        this.jTextField9 = jTextField9;
+    }
+
+    public JTextField getjTextFieldCocinerosEntradas() {
+        return jTextFieldCocinerosEntradas;
+    }
+
+    public void setjTextFieldCocinerosEntradas(JTextField jTextFieldCocinerosEntradas) {
+        this.jTextFieldCocinerosEntradas = jTextFieldCocinerosEntradas;
+    }
+
+    public JTextField getjTextFieldCocinerosFuertes() {
+        return jTextFieldCocinerosFuertes;
+    }
+
+    public void setjTextFieldCocinerosFuertes(JTextField jTextFieldCocinerosFuertes) {
+        this.jTextFieldCocinerosFuertes = jTextFieldCocinerosFuertes;
+    }
+
+    public JTextField getjTextFieldCocinerosPostres() {
+        return jTextFieldCocinerosPostres;
+    }
+
+    public void setjTextFieldCocinerosPostres(JTextField jTextFieldCocinerosPostres) {
+        this.jTextFieldCocinerosPostres = jTextFieldCocinerosPostres;
+    }
+
+    public JTextField getjTextFieldHoras() {
+        return jTextFieldHoras;
+    }
+
+    public void setjTextFieldHoras(JTextField jTextFieldHoras) {
+        this.jTextFieldHoras = jTextFieldHoras;
+    }
+
+    public JTextField getjTextFieldMesoneros() {
+        return jTextFieldMesoneros;
+    }
+
+    public void setjTextFieldMesoneros(JTextField jTextFieldMesoneros) {
+        this.jTextFieldMesoneros = jTextFieldMesoneros;
+    }
+    
     //BOTON CARGAR DATOS
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
@@ -606,6 +695,7 @@ public class Interfaz extends javax.swing.JFrame {
         }
         jButton1.setEnabled(false);
         }
+        jTextField6.setText("0");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //BOTON CONTRATAR COCINEROS ENTRADAS
