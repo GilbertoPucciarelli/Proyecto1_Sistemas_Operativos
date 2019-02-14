@@ -15,10 +15,12 @@ import java.util.logging.Logger;
  */
 public class C_Entradas extends Cocineros{
     
-    public C_Entradas(Interfaz interfaz){
+    private Mesones mesones;
+    
+    public C_Entradas(Interfaz interfaz, Mesones mesones){
         super();
         hora = (float) 0.25;
-        mesones = 20;
+        this.mesones = mesones;
         cantidadInicial = 1;
         ejecutando = false;
         this.interfaz = interfaz;
@@ -26,7 +28,7 @@ public class C_Entradas extends Cocineros{
     
     @Override
     public void run(){
-        System.out.println("entro x3");
+        
         synchronized (this) {
             do {
 
@@ -39,10 +41,25 @@ public class C_Entradas extends Cocineros{
                         Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-
+                
+                //COMPROBAR SI YA SE ALCANZO EL LIMITE DE PLATOS PRODUCIDOS
+                if(mesones.getPlatosProducidos() != mesones.getCapacidad()){
+                    
+                    for (int i = 0; i < mesones.getCapacidad(); i++) {
+                        
+                        if(mesones.getMesones()[i] == 0){
+                            
+                            mesones.getMesones()[i] = 1;
+                            mesones.setPlatosProducidos(mesones.getPlatosProducidos() + 1);
+                            interfaz.getjTextField4().setText(Integer.toString(mesones.getPlatosProducidos()));
+                            break;
+                        }
+                    }
+                }
+                
                 try {
-                    Thread.sleep((long) (hora * 1000));
-                    System.out.println("Cocinando...");
+                    Thread.sleep((long) (hora * 10000));
+                    System.out.println("Cocinando entradas...");
                 } catch (InterruptedException ex) {
                     Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -58,14 +75,6 @@ public class C_Entradas extends Cocineros{
 
     public void setHora(float hora) {
         this.hora = hora;
-    }
-
-    public int getMesones() {
-        return mesones;
-    }
-
-    public void setMesones(int mesones) {
-        this.mesones = mesones;
     }
 
     public int getCantidadInicial() {

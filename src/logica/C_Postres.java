@@ -6,6 +6,8 @@
 package logica;
 
 import interfaz.Interfaz;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,13 +15,58 @@ import interfaz.Interfaz;
  */
 public class C_Postres extends Cocineros{
     
-    public C_Postres(Interfaz interfaz){
+    private Mesones mesones;
+    
+    public C_Postres(Interfaz interfaz, Mesones mesones){
         super();
         hora = (float) 0.30;
-        mesones = 10;
+        this.mesones = mesones;
         cantidadInicial = 0;
         ejecutando = false;
         this.interfaz = interfaz;
+    }
+    
+    @Override
+    public void run(){
+        
+        synchronized (this) {
+            do {
+
+                if (ejecutando == false) {
+
+                    try {
+                        this.wait();
+
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                //COMPROBAR SI YA SE ALCANZO EL LIMITE DE PLATOS PRODUCIDOS
+                if(mesones.getPlatosProducidos() != mesones.getCapacidad()){
+                    
+                    for (int i = 0; i < mesones.getCapacidad(); i++) {
+                        
+                        if(mesones.getMesones()[i] == 0){
+                            
+                            mesones.getMesones()[i] = 1;
+                            mesones.setPlatosProducidos(mesones.getPlatosProducidos() + 1);
+                            interfaz.getjTextField8().setText(Integer.toString(mesones.getPlatosProducidos()));
+                            break;
+                        }
+                    }
+                }
+
+                try {
+                    Thread.sleep((long) (hora * 10000));
+                    System.out.println("Cocinando postres...");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } while (ejecutando);
+
+        }
     }
 
     public float getHora() {
@@ -28,14 +75,6 @@ public class C_Postres extends Cocineros{
 
     public void setHora(float hora) {
         this.hora = hora;
-    }
-
-    public int getMesones() {
-        return mesones;
-    }
-
-    public void setMesones(int mesones) {
-        this.mesones = mesones;
     }
 
     public int getCantidadInicial() {
@@ -61,10 +100,4 @@ public class C_Postres extends Cocineros{
     public void setInterfaz(Interfaz interfaz) {
         this.interfaz = interfaz;
     }
-    
-    @Override
-    public void run(){
-        
-    }
-    
 }

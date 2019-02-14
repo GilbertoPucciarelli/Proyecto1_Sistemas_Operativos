@@ -38,6 +38,9 @@ public class Aplicacion extends Thread{
     int CapacidadEntradas[] = new int[capacidadEntradas];
     int CapacidadFuertes[] = new int[capacidadFuertes];
     int CapacidadPostres[] = new int[capacidadPostres];
+    private Mesones mesonesEntradas;
+    private Mesones mesonesPlatosFuertes;
+    private Mesones mesonesPostres;
     private C_Entradas[] C_Entradas;
     private C_Platos_Fuertes[] C_Platos_Fuertes;
     private C_Postres[] C_Postres;
@@ -232,6 +235,14 @@ public class Aplicacion extends Thread{
             C_Entradas[i].start();
         }
         
+        for (int i = 0; i < maximoFuertes; i++) {
+            C_Platos_Fuertes[i].start();
+        }
+        
+        for (int i = 0; i < maximoPostres; i++) {
+            C_Postres[i].start();
+        }
+        
         synchronized (this) {
             do{
                 try{
@@ -268,7 +279,14 @@ public class Aplicacion extends Thread{
             
             for (int i = 0; i < inicialEntradas; i++) {
                 C_Entradas[i].setEjecutando(true);
-                System.out.println("entro");
+            }
+            
+            for (int i = 0; i < inicialFuertes; i++) {
+                C_Platos_Fuertes[i].setEjecutando(true);
+            }
+            
+            for (int i = 0; i < inicialPostres; i++) {
+                C_Postres[i].setEjecutando(true);
             }
             
         }else{
@@ -317,17 +335,20 @@ public class Aplicacion extends Thread{
         C_Entradas = new C_Entradas[maximoEntradas];
         C_Platos_Fuertes = new C_Platos_Fuertes[maximoFuertes];
         C_Postres = new C_Postres[maximoPostres];
+        mesonesEntradas = new Mesones(20);
+        mesonesPlatosFuertes = new Mesones(30);
+        mesonesPostres = new Mesones(10);
         
         for (int i = 0; i < maximoEntradas; i++) {
-            C_Entradas[i] = new C_Entradas(interfaz);
+            C_Entradas[i] = new C_Entradas(interfaz, mesonesEntradas);
         }
         
         for (int i = 0; i < maximoFuertes; i++) {
-            C_Platos_Fuertes[i] = new C_Platos_Fuertes(interfaz);
+            C_Platos_Fuertes[i] = new C_Platos_Fuertes(interfaz, mesonesPlatosFuertes);
         }
         
         for (int i = 0; i < maximoPostres; i++) {
-            C_Postres[i] = new C_Postres(interfaz);
+            C_Postres[i] = new C_Postres(interfaz, mesonesPostres);
         }
         
         for (int i = 0; i < inicialEntradas; i++) {
