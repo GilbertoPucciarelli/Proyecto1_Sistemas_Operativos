@@ -58,12 +58,11 @@ public class C_Platos_Fuertes extends Cocineros{
                         } catch (InterruptedException ex) {
                             Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                             }
+
                             break;
                         }
                     }
                 }
-
-
 
             } while (ejecutando);
 

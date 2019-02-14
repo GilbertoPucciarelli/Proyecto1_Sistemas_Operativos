@@ -62,7 +62,6 @@ public class C_Postres extends Cocineros{
                         }
                     }
                 }
-
             } while (ejecutando);
 
         }

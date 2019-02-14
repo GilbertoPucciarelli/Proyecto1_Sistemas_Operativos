@@ -61,13 +61,23 @@ public class C_Entradas extends Cocineros{
                             break;
                         }
                     }
+                
+                try {
+                    Thread.sleep((long) (hora * 10000));
+                    System.out.println("Cocinando entradas...");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
+
                 }
-               
+                }
 
             } while (ejecutando);
 
-        }
+        
+            
     }
+    }
+
 
     public float getHora() {
         return hora;
