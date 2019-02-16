@@ -242,7 +242,7 @@ public class Aplicacion extends Thread {
 
     @Override
     public void run() {
-        
+        gerente.start();
         jefeMesoneros.start();
 
         for (int i = 0; i < maximoEntradas; i++) {
@@ -293,6 +293,11 @@ public class Aplicacion extends Thread {
             this.setEjecutando(true);
             synchronized (this) {
                 notify();
+            }
+            
+            synchronized (gerente) {
+                gerente.setEjecutando(true);
+                gerente.notify();
             }
             
             synchronized (jefeMesoneros) {
@@ -359,6 +364,10 @@ public class Aplicacion extends Thread {
         maximoMesoneros = parseInt(b.readLine());
         b.close();
 
+        jefeMesoneros = new Jefe_Mesoneros(interfaz, horas, semaforoJM);
+        jefeMesoneros.setEjecutando(true);
+        gerente = new Gerente(horas, interfaz, jefeMesoneros, semaforoJM, semaforoE, semaforoPF, semaforoP, racesemaphore);
+        gerente.setEjecutando(true);
         C_Entradas = new C_Entradas[maximoEntradas];
         C_Platos_Fuertes = new C_Platos_Fuertes[maximoFuertes];
         C_Postres = new C_Postres[maximoPostres];
@@ -366,8 +375,7 @@ public class Aplicacion extends Thread {
         mesonesPlatosFuertes = new Mesones(capacidadFuertes);
         mesonesPostres = new Mesones(capacidadPostres);
         Mesoneros = new Mesoneros[maximoMesoneros];
-        jefeMesoneros = new Jefe_Mesoneros(interfaz, horas, semaforoJM);
-        jefeMesoneros.setEjecutando(true);
+
 
         for (int i = 0; i < maximoMesoneros; i++) {
             Mesoneros[i] = new Mesoneros(interfaz, semaforoE, semaforoPF, semaforoP, racesemaphore, mesonesEntradas, mesonesPlatosFuertes, mesonesPostres);

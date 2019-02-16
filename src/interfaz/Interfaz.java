@@ -711,6 +711,9 @@ public class Interfaz extends javax.swing.JFrame {
             jButton1.setEnabled(false);
         }
         jTextField6.setText("0");
+        jTextField4.setText("0");
+        jTextField7.setText("0");
+        jTextField8.setText("0");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //BOTON CONTRATAR COCINEROS ENTRADAS
