@@ -17,12 +17,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
+
 /**
  *
  * @author Gilberto
  */
-public class Aplicacion extends Thread{
-    
+public class Aplicacion extends Thread {
+
     private int horas;
     private int capacidadEntradas;
     private int capacidadFuertes;
@@ -53,14 +54,17 @@ public class Aplicacion extends Thread{
     private Semaphore semaforoE;
     private Semaphore semaforoPF;
     private Semaphore semaforoP;
+    private Semaphore semaforoJM;
     private Semaphore racesemaphore;
-    
-    public Aplicacion(Interfaz interfaz){
+
+    //CONSTRUCTOR
+    public Aplicacion(Interfaz interfaz) {
         this.interfaz = interfaz;
         this.ejecutando = false;
         this.semaforoE = new Semaphore(1);
         this.semaforoPF = new Semaphore(1);
         this.semaforoP = new Semaphore(1);
+        this.semaforoJM = new Semaphore(1);
         this.racesemaphore = new Semaphore(1);
     }
 
@@ -235,35 +239,35 @@ public class Aplicacion extends Thread{
     public void setInterfaz(Interfaz interfaz) {
         this.interfaz = interfaz;
     }
-    
-    
-    
+
     @Override
-    public void run(){
+    public void run() {
         
+        jefeMesoneros.start();
+
+        for (int i = 0; i < maximoEntradas; i++) {
+            C_Entradas[i].start();
+        }
+
+        for (int i = 0; i < maximoFuertes; i++) {
+            C_Platos_Fuertes[i].start();
+        }
+
+        for (int i = 0; i < maximoPostres; i++) {
+            C_Postres[i].start();
+        }
+
         for (int i = 0; i < maximoMesoneros; i++) {
             Mesoneros[i].start();
         }
         
-        for (int i = 0; i < maximoEntradas; i++) {
-            C_Entradas[i].start();
-        }
-        
-        for (int i = 0; i < maximoFuertes; i++) {
-            C_Platos_Fuertes[i].start();
-        }
-        
-        for (int i = 0; i < maximoPostres; i++) {
-            C_Postres[i].start();
-        }
-        
         synchronized (this) {
-            do{
-                try{
+            do {
+                try {
 
-                    Thread.sleep(horas * 1000);
+                    Thread.sleep(horas * 10000);
 
-                }catch (InterruptedException ex) {
+                } catch (InterruptedException ex) {
                     Logger.getLogger(Aplicacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
@@ -277,50 +281,55 @@ public class Aplicacion extends Thread{
                     }
                 }
 
-            }while(ejecutando);
+            } while (ejecutando);
         }
     }
-    
+
     //FUNCION PARA EMPEZAR LA SIMULACION
-    public void simular() throws InterruptedException{
-        
-        if(iniciado){
-            
+    public void simular() throws InterruptedException {
+
+        if (iniciado) {
+
             this.setEjecutando(true);
             synchronized (this) {
                 notify();
             }
             
-            for (int i = 0; i < inicialMesoneros; i++) {
-            Mesoneros[i].setEjecutando(true);
+            synchronized (jefeMesoneros) {
+                jefeMesoneros.setEjecutando(true);
+                notify();
             }
-            
+
+            for (int i = 0; i < inicialMesoneros; i++) {
+                Mesoneros[i].setEjecutando(true);
+            }
+
             for (int i = 0; i < inicialEntradas; i++) {
                 C_Entradas[i].setEjecutando(true);
             }
-            
+
             for (int i = 0; i < inicialFuertes; i++) {
                 C_Platos_Fuertes[i].setEjecutando(true);
             }
-            
+
             for (int i = 0; i < inicialPostres; i++) {
                 C_Postres[i].setEjecutando(true);
             }
-            
-        }else{
-            
+
+        } else {
+
             start();
         }
     }
-    
+
     //FUNCION PARA CARGAR DATOS DEL .TXT
-    public void cargarDatos() throws FileNotFoundException, IOException{
-        
+    public void cargarDatos() throws FileNotFoundException, IOException {
+
         horas = capacidadEntradas = capacidadFuertes = capacidadPostres = inicialEntradas = maximoEntradas = inicialFuertes = maximoFuertes = inicialPostres = maximoPostres = inicialMesoneros = maximoMesoneros = 0;
-        
+
         JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         int val = fc.showOpenDialog(null);
-        
+
         File archivo = fc.getSelectedFile();
         FileReader f = new FileReader(archivo.getAbsolutePath());
         BufferedReader b = new BufferedReader(f);
@@ -337,7 +346,7 @@ public class Aplicacion extends Thread{
         b.readLine();
         maximoEntradas = parseInt(b.readLine());
         b.readLine();
-        inicialFuertes =  parseInt(b.readLine());
+        inicialFuertes = parseInt(b.readLine());
         b.readLine();
         maximoFuertes = parseInt(b.readLine());
         b.readLine();
@@ -349,7 +358,7 @@ public class Aplicacion extends Thread{
         b.readLine();
         maximoMesoneros = parseInt(b.readLine());
         b.close();
-        
+
         C_Entradas = new C_Entradas[maximoEntradas];
         C_Platos_Fuertes = new C_Platos_Fuertes[maximoFuertes];
         C_Postres = new C_Postres[maximoPostres];
@@ -357,35 +366,37 @@ public class Aplicacion extends Thread{
         mesonesPlatosFuertes = new Mesones(capacidadFuertes);
         mesonesPostres = new Mesones(capacidadPostres);
         Mesoneros = new Mesoneros[maximoMesoneros];
-        
+        jefeMesoneros = new Jefe_Mesoneros(interfaz, horas, semaforoJM);
+        jefeMesoneros.setEjecutando(true);
+
         for (int i = 0; i < maximoMesoneros; i++) {
-        Mesoneros[i] = new Mesoneros(interfaz,semaforoE,semaforoPF,semaforoP,racesemaphore,mesonesEntradas,mesonesPlatosFuertes,mesonesPostres);
+            Mesoneros[i] = new Mesoneros(interfaz, semaforoE, semaforoPF, semaforoP, racesemaphore, mesonesEntradas, mesonesPlatosFuertes, mesonesPostres);
         }
-        
+
         for (int i = 0; i < maximoEntradas; i++) {
-            C_Entradas[i] = new C_Entradas(interfaz, mesonesEntradas);
+            C_Entradas[i] = new C_Entradas(interfaz, mesonesEntradas, semaforoE);
         }
-        
+
         for (int i = 0; i < maximoFuertes; i++) {
-            C_Platos_Fuertes[i] = new C_Platos_Fuertes(interfaz, mesonesPlatosFuertes);
+            C_Platos_Fuertes[i] = new C_Platos_Fuertes(interfaz, mesonesPlatosFuertes, semaforoPF);
         }
-        
+
         for (int i = 0; i < maximoPostres; i++) {
-            C_Postres[i] = new C_Postres(interfaz, mesonesPostres);
+            C_Postres[i] = new C_Postres(interfaz, mesonesPostres, semaforoP);
         }
-        
+
         for (int i = 0; i < inicialMesoneros; i++) {
             Mesoneros[i].setEjecutando(true);
         }
-        
+
         for (int i = 0; i < inicialEntradas; i++) {
             C_Entradas[i].setEjecutando(true);
         }
-        
+
         for (int i = 0; i < inicialFuertes; i++) {
             C_Platos_Fuertes[i].setEjecutando(true);
         }
-        
+
         for (int i = 0; i < inicialPostres; i++) {
             C_Postres[i].setEjecutando(true);
         }

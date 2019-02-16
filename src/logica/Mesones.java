@@ -10,13 +10,13 @@ package logica;
  * @author Gilberto
  */
 public class Mesones {
-    
+
     private int mesones[];
     private int capacidad;
     private int platosProducidos;
-    
-    public Mesones(int capacidad){
-        
+
+    public Mesones(int capacidad) {
+
         this.capacidad = capacidad;
         mesones = new int[capacidad];
     }
@@ -38,23 +38,22 @@ public class Mesones {
     }
 
     public int getPlatosProducidos() {
-        
+
         platosProducidos = 0;
-        
+
         for (int i = 0; i < capacidad; i++) {
-            
-            if(mesones[i] == 1){
-                
+
+            if (mesones[i] == 1) {
+
                 platosProducidos++;
             }
         }
-        
+
         return platosProducidos;
     }
 
     public void setPlatosProducidos(int platosProducidos) {
         this.platosProducidos = platosProducidos;
     }
-    
-    
+
 }

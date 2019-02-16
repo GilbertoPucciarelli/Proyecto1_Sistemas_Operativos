@@ -6,29 +6,32 @@
 package logica;
 
 import interfaz.Interfaz;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-        
+
 /**
  *
  * @author Gilberto
  */
-public class C_Platos_Fuertes extends Cocineros{
-    
+public class C_Platos_Fuertes extends Cocineros {
+
     private Mesones mesones;
-    
-    public C_Platos_Fuertes(Interfaz interfaz, Mesones mesones){
+    private Semaphore semaforoPF;
+
+    public C_Platos_Fuertes(Interfaz interfaz, Mesones mesones, Semaphore semaforoPF) {
         super();
         hora = (float) 0.33;
         this.mesones = mesones;
         cantidadInicial = 2;
         ejecutando = false;
-        this.interfaz = interfaz;        
+        this.interfaz = interfaz;
+        this.semaforoPF = semaforoPF;
     }
-    
+
     @Override
-    public void run(){
-        
+    public void run() {
+
         synchronized (this) {
             do {
 
@@ -41,27 +44,36 @@ public class C_Platos_Fuertes extends Cocineros{
                         Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                
+
                 //COMPROBAR SI YA SE ALCANZO EL LIMITE DE PLATOS PRODUCIDOS
-                if(mesones.getPlatosProducidos() != mesones.getCapacidad()){
-                    
+                if (mesones.getPlatosProducidos() != mesones.getCapacidad()) {
+
+                    try {
+
+                        semaforoPF.acquire();
+                    } catch (InterruptedException ex) {
+
+                        Logger.getLogger(C_Platos_Fuertes.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                     for (int i = 0; i < mesones.getCapacidad(); i++) {
-                        
-                        if(mesones.getMesones()[i] == 0){
-                            
+
+                        if (mesones.getMesones()[i] == 0) {
+
                             mesones.getMesones()[i] = 1;
                             mesones.setPlatosProducidos(mesones.getPlatosProducidos() + 1);
                             interfaz.getjTextField7().setText(Integer.toString(mesones.getPlatosProducidos()));
-                        try {
-                            Thread.sleep((long) (hora * 10000));
-                            System.out.println("Cocinando platos fuertes...");
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
+                            try {
+                                Thread.sleep((long) (hora * 10000));
+                                System.out.println("Cocinando platos fuertes...");
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                             }
 
                             break;
                         }
                     }
+                    semaforoPF.release();
                 }
 
             } while (ejecutando);
@@ -99,5 +111,5 @@ public class C_Platos_Fuertes extends Cocineros{
 
     public void setInterfaz(Interfaz interfaz) {
         this.interfaz = interfaz;
-    }  
+    }
 }

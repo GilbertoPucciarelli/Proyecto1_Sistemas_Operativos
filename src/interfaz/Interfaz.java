@@ -20,8 +20,6 @@ public class Interfaz extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz
      */
-    
-    
     //ATRIBUTOS
     Aplicacion aplicacion = new Aplicacion(this);
     private boolean cantidad1 = true;
@@ -34,7 +32,7 @@ public class Interfaz extends javax.swing.JFrame {
     public void setAplicacion(Aplicacion aplicacion) {
         this.aplicacion = aplicacion;
     }
-    
+
     //CONSTRUCTOR
     public Interfaz() {
         initComponents();
@@ -241,12 +239,14 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel11.setText("Cantidad de Postres");
 
+        jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField9ActionPerformed(evt);
             }
         });
 
+        jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField10ActionPerformed(evt);
@@ -295,16 +295,20 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jLabel13))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextField9, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                            .addComponent(jTextField10)))))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +354,7 @@ public class Interfaz extends javax.swing.JFrame {
                                         .addComponent(jButton6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton9)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -442,16 +446,16 @@ public class Interfaz extends javax.swing.JFrame {
 
     //BOTON SIMULAR 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-         aplicacion.setEjecutando(true);
-        
+
+        aplicacion.setEjecutando(true);
+
         try {
             aplicacion.simular();
-            
+
         } catch (InterruptedException ex) {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         aplicacion.setIniciado(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -590,200 +594,200 @@ public class Interfaz extends javax.swing.JFrame {
     public void setjTextFieldMesoneros(JTextField jTextFieldMesoneros) {
         this.jTextFieldMesoneros = jTextFieldMesoneros;
     }
-    
+
     //BOTON CARGAR DATOS
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         //SE CARGAN LOS DATOS
         try {
             aplicacion.cargarDatos();
         } catch (IOException | NumberFormatException ex) {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //VALIDACIONES
-        if(aplicacion.getHoras() <= 0){
+        if (aplicacion.getHoras() <= 0) {
             cantidad1 = false;
         }
-        
-        if(aplicacion.getMaximoEntradas() > 20){
+
+        if (aplicacion.getMaximoEntradas() > 20) {
             cantidad1 = false;
         }
-        
-        if(aplicacion.getMaximoFuertes() > 30){
+
+        if (aplicacion.getMaximoFuertes() > 30) {
             cantidad1 = false;
         }
-        
-        if(aplicacion.getMaximoPostres() > 10){
+
+        if (aplicacion.getMaximoPostres() > 10) {
             cantidad1 = false;
         }
-        
-        if(aplicacion.getInicialEntradas() < 1 || aplicacion.getInicialEntradas() > 3){
+
+        if (aplicacion.getInicialEntradas() < 1 || aplicacion.getInicialEntradas() > 3) {
             cantidad1 = false;
         }
-        if(aplicacion.getInicialFuertes() < 2 || aplicacion.getInicialFuertes() > 4){
+        if (aplicacion.getInicialFuertes() < 2 || aplicacion.getInicialFuertes() > 4) {
             cantidad1 = false;
         }
-        if(aplicacion.getInicialPostres() < 0 || aplicacion.getInicialPostres() > 2){
+        if (aplicacion.getInicialPostres() < 0 || aplicacion.getInicialPostres() > 2) {
             cantidad1 = false;
         }
-        if(aplicacion.getMaximoEntradas() < 1 || aplicacion.getMaximoEntradas() > 3){
+        if (aplicacion.getMaximoEntradas() < 1 || aplicacion.getMaximoEntradas() > 3) {
             cantidad1 = false;
         }
-        if(aplicacion.getMaximoFuertes() < 2 || aplicacion.getMaximoFuertes() > 4){
+        if (aplicacion.getMaximoFuertes() < 2 || aplicacion.getMaximoFuertes() > 4) {
             cantidad1 = false;
         }
-        if(aplicacion.getMaximoPostres() < 0 || aplicacion.getMaximoPostres() > 2){
+        if (aplicacion.getMaximoPostres() < 0 || aplicacion.getMaximoPostres() > 2) {
             cantidad1 = false;
         }
-        if(aplicacion.getInicialMesoneros() < 0 || aplicacion.getInicialMesoneros() > 6){
+        if (aplicacion.getInicialMesoneros() < 0 || aplicacion.getInicialMesoneros() > 6) {
             cantidad1 = false;
         }
-        if(aplicacion.getMaximoMesoneros() < 0 || aplicacion.getMaximoMesoneros() > 6){
+        if (aplicacion.getMaximoMesoneros() < 0 || aplicacion.getMaximoMesoneros() > 6) {
             cantidad1 = false;
         }
-        
-        if(aplicacion.getInicialEntradas() > aplicacion.getMaximoEntradas()){
+
+        if (aplicacion.getInicialEntradas() > aplicacion.getMaximoEntradas()) {
             cantidad2 = false;
         }
-        if(aplicacion.getInicialFuertes() > aplicacion.getMaximoFuertes()){
+        if (aplicacion.getInicialFuertes() > aplicacion.getMaximoFuertes()) {
             cantidad2 = false;
         }
-        if(aplicacion.getInicialPostres() > aplicacion.getMaximoPostres()){
+        if (aplicacion.getInicialPostres() > aplicacion.getMaximoPostres()) {
             cantidad2 = false;
         }
-        if(aplicacion.getInicialMesoneros() > aplicacion.getMaximoMesoneros()){
+        if (aplicacion.getInicialMesoneros() > aplicacion.getMaximoMesoneros()) {
             cantidad2 = false;
         }
-        
-        if(cantidad1 == false || cantidad2 == false){
-        if(cantidad1 == false){
-            System.out.println("Datos introducidos incorrectos");
-        }
-        if(cantidad2 == false){
-            System.out.println("Cantidad inicial mayor a cantidad final");
-        }
-        }else{
-            
-        jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
-        jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
-        jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
-        jTextFieldHoras.setText(String.valueOf(aplicacion.getHoras()));
-        jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
-        
-        if(aplicacion.getInicialPostres() != 0){
-        jButton9.setEnabled(true);
-        }
-        jButton2.setEnabled(true);
-        jButton3.setEnabled(true);
-        if(aplicacion.getInicialEntradas() != aplicacion.getMaximoEntradas()){
-        jButton4.setEnabled(true);
-        }
-        if(aplicacion.getInicialFuertes() != aplicacion.getMaximoFuertes()){
-        jButton5.setEnabled(true);
-        }
-        if(aplicacion.getInicialPostres() != aplicacion.getMaximoPostres()){
-        jButton6.setEnabled(true);
-        }
-        jButton7.setEnabled(true);
-        jButton8.setEnabled(true);
-        if(aplicacion.getInicialMesoneros() != aplicacion.getMaximoMesoneros()){
-        jButton10.setEnabled(true);
-        }
-        if(aplicacion.getInicialMesoneros() != 0){
-        jButton11.setEnabled(true);
-        }
-        jButton1.setEnabled(false);
+
+        if (cantidad1 == false || cantidad2 == false) {
+            if (cantidad1 == false) {
+                System.out.println("Datos introducidos incorrectos");
+            }
+            if (cantidad2 == false) {
+                System.out.println("Cantidad inicial mayor a cantidad final");
+            }
+        } else {
+
+            jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
+            jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
+            jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
+            jTextFieldHoras.setText(String.valueOf(aplicacion.getHoras()));
+            jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
+
+            if (aplicacion.getInicialPostres() != 0) {
+                jButton9.setEnabled(true);
+            }
+            jButton2.setEnabled(true);
+            jButton3.setEnabled(true);
+            if (aplicacion.getInicialEntradas() != aplicacion.getMaximoEntradas()) {
+                jButton4.setEnabled(true);
+            }
+            if (aplicacion.getInicialFuertes() != aplicacion.getMaximoFuertes()) {
+                jButton5.setEnabled(true);
+            }
+            if (aplicacion.getInicialPostres() != aplicacion.getMaximoPostres()) {
+                jButton6.setEnabled(true);
+            }
+            jButton7.setEnabled(true);
+            jButton8.setEnabled(true);
+            if (aplicacion.getInicialMesoneros() != aplicacion.getMaximoMesoneros()) {
+                jButton10.setEnabled(true);
+            }
+            if (aplicacion.getInicialMesoneros() != 0) {
+                jButton11.setEnabled(true);
+            }
+            jButton1.setEnabled(false);
         }
         jTextField6.setText("0");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //BOTON CONTRATAR COCINEROS ENTRADAS
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+
         aplicacion.setInicialEntradas(aplicacion.getInicialEntradas() + 1);
         jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
-        
-        if(aplicacion.getInicialEntradas() == aplicacion.getMaximoEntradas()){
-        jButton4.setEnabled(false);
+
+        if (aplicacion.getInicialEntradas() == aplicacion.getMaximoEntradas()) {
+            jButton4.setEnabled(false);
         }
         jButton7.setEnabled(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     //BOTON CONTRATAR COCINEROS PLATOS FUERTES
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
+
         aplicacion.setInicialFuertes(aplicacion.getInicialFuertes() + 1);
         jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
-        
-        if(aplicacion.getInicialFuertes() == aplicacion.getMaximoFuertes()){
-        jButton5.setEnabled(false);
+
+        if (aplicacion.getInicialFuertes() == aplicacion.getMaximoFuertes()) {
+            jButton5.setEnabled(false);
         }
         jButton8.setEnabled(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     //BOTON CONTRATAR COCINEROS POSTRES
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         aplicacion.setInicialPostres(aplicacion.getInicialPostres() + 1);
         jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
-        if(aplicacion.getInicialPostres() == aplicacion.getMaximoPostres()){
-        jButton6.setEnabled(false);
+        if (aplicacion.getInicialPostres() == aplicacion.getMaximoPostres()) {
+            jButton6.setEnabled(false);
         }
         jButton9.setEnabled(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     //BOTON DESPEDIR COCINEROS ENTRADAS
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        
+
         aplicacion.setInicialEntradas(aplicacion.getInicialEntradas() - 1);
         jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
-        if(aplicacion.getInicialEntradas() == 0){
-        jButton7.setEnabled(false);
+        if (aplicacion.getInicialEntradas() == 0) {
+            jButton7.setEnabled(false);
         }
         jButton4.setEnabled(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     //BOTON DESPEDIR COCINEROS PLATOS FUERTES
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+
         aplicacion.setInicialFuertes(aplicacion.getInicialFuertes() - 1);
         jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
-        if(aplicacion.getInicialFuertes() == 0){
-        jButton8.setEnabled(false);
+        if (aplicacion.getInicialFuertes() == 0) {
+            jButton8.setEnabled(false);
         }
         jButton5.setEnabled(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     //BOTON DESPEDIR COCINEROS POSTRES
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        
+
         aplicacion.setInicialPostres(aplicacion.getInicialPostres() - 1);
         jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
-        if(aplicacion.getInicialPostres() == 0){
-        jButton9.setEnabled(false);
+        if (aplicacion.getInicialPostres() == 0) {
+            jButton9.setEnabled(false);
         }
         jButton6.setEnabled(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     //BOTON CONTRATAR MESONEROS
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        
+
         aplicacion.setInicialMesoneros(aplicacion.getInicialMesoneros() + 1);
         jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
-        if(aplicacion.getInicialMesoneros() == aplicacion.getMaximoMesoneros()){
-        jButton10.setEnabled(false);
+        if (aplicacion.getInicialMesoneros() == aplicacion.getMaximoMesoneros()) {
+            jButton10.setEnabled(false);
         }
         jButton11.setEnabled(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     //BOTON DESPEDIR MESONEROS
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        
+
         aplicacion.setInicialMesoneros(aplicacion.getInicialMesoneros() - 1);
         jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
-        if(aplicacion.getInicialMesoneros() == 0){
-        jButton11.setEnabled(false);
+        if (aplicacion.getInicialMesoneros() == 0) {
+            jButton11.setEnabled(false);
         }
         jButton10.setEnabled(true);
     }//GEN-LAST:event_jButton11ActionPerformed
