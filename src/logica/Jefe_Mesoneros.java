@@ -21,12 +21,14 @@ public class Jefe_Mesoneros extends Thread {
     private boolean ejecutando;
     Interfaz interfaz;
     private Semaphore semaforoJM;
+    private int contadorinicial;
 
     public Jefe_Mesoneros(Interfaz interfaz, int contador, Semaphore semaforoJM) {
         this.contador = contador;
         this.hora = (float) 0.05;
         this.interfaz = interfaz;
         this.semaforoJM = semaforoJM;
+        this.contadorinicial = contador;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class Jefe_Mesoneros extends Thread {
                         Logger.getLogger(Jefe_Mesoneros.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    contador = 20;
+                    contador = contadorinicial;
                     interfaz.getjTextFieldHoras().setText(Integer.toString(contador));
 
                 } else {
