@@ -7,26 +7,27 @@ package logica;
 
 import interfaz.Interfaz;
 import java.util.Random;
+
 /**
  *
  * @author Gilberto
  */
-public class Gerente extends Thread{
-    
+public class Gerente extends Thread {
+
     private float hora;
     private boolean descansando;
     Interfaz interfaz;
     Random r;
-    
-    public Gerente(Interfaz interfaz){
+
+    public Gerente(Interfaz interfaz) {
         this.hora = (float) 0.1;
         this.interfaz = interfaz;
         this.descansando = true;
     }
-    
+
     @Override
-    public void run(){
-        
+    public void run() {
+
     }
-    
+
 }

@@ -11,8 +11,8 @@ import interfaz.Interfaz;
  *
  * @author Gilberto
  */
-public abstract class Cocineros extends Thread{
-    
+public abstract class Cocineros extends Thread {
+
     protected float hora;
     protected int mesones;
     protected int cantidadInicial;
