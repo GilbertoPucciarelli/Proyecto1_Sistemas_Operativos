@@ -63,17 +63,18 @@ public class C_Platos_Fuertes extends Cocineros {
                             mesones.getMesones()[i] = 1;
                             mesones.setPlatosProducidos(mesones.getPlatosProducidos() + 1);
                             interfaz.getjTextField7().setText(Integer.toString(mesones.getPlatosProducidos()));
-                            try {
-                                Thread.sleep((long) (hora * 10000));
-                                System.out.println("Cocinando platos fuertes...");
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
-                            }
 
                             break;
                         }
                     }
                     semaforoPF.release();
+                }
+
+                try {
+                    Thread.sleep((long) (hora * 10000));
+                    System.out.println("Cocinando platos fuertes...");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } while (ejecutando);

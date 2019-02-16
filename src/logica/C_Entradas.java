@@ -63,18 +63,19 @@ public class C_Entradas extends Cocineros {
                             mesones.getMesones()[i] = 1;
                             mesones.setPlatosProducidos(mesones.getPlatosProducidos() + 1);
                             interfaz.getjTextField4().setText(Integer.toString(mesones.getPlatosProducidos()));
-                            try {
-                                Thread.sleep((long) (hora * 10000));
-                                System.out.println("Cocinando entradas...");
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
-
-                            }
 
                             break;
                         }
                     }
                     semaforoE.release();
+                }
+
+                try {
+                    Thread.sleep((long) (hora * 10000));
+                    System.out.println("Cocinando entradas...");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
+
                 }
 
             } while (ejecutando);

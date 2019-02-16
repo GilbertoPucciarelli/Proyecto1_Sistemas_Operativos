@@ -127,18 +127,21 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel4.setText("Cocineros de Postres");
 
+        jTextFieldCocinerosEntradas.setEditable(false);
         jTextFieldCocinerosEntradas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCocinerosEntradasActionPerformed(evt);
             }
         });
 
+        jTextFieldCocinerosFuertes.setEditable(false);
         jTextFieldCocinerosFuertes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCocinerosFuertesActionPerformed(evt);
             }
         });
 
+        jTextFieldCocinerosPostres.setEditable(false);
         jTextFieldCocinerosPostres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCocinerosPostresActionPerformed(evt);
@@ -193,12 +196,14 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldMesoneros.setEditable(false);
         jTextFieldMesoneros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldMesonerosActionPerformed(evt);
             }
         });
 
+        jTextField6.setEditable(false);
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -212,18 +217,21 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel8.setText("Cantidad de Ordenes Atendidas");
 
+        jTextField4.setEditable(false);
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
             }
         });
 
+        jTextField7.setEditable(false);
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField7ActionPerformed(evt);
             }
         });
 
+        jTextField8.setEditable(false);
         jTextField8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField8ActionPerformed(evt);
@@ -239,6 +247,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel11.setText("Cantidad de Postres");
 
+        jTextField9.setEditable(false);
         jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,6 +255,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        jTextField10.setEditable(false);
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,6 +263,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldHoras.setEditable(false);
         jTextFieldHoras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldHorasActionPerformed(evt);
