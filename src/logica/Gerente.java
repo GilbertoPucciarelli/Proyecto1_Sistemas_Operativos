@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class Gerente extends Thread {
 
     private float hora;
-    private boolean ejecutando;
+    private volatile boolean ejecutando;
     Interfaz interfaz;
     private Jefe_Mesoneros jefeM;
     private Semaphore semaforoJM;
@@ -27,7 +27,7 @@ public class Gerente extends Thread {
     private Semaphore semaforoP;
     private Semaphore racesemaphore;
 
-    public Gerente(int hora,Interfaz interfaz,Jefe_Mesoneros jefeM,Semaphore semaforoJM,Semaphore semaforoE,Semaphore semaforoPF,Semaphore semaforoP,Semaphore racesemaphore) {
+    public Gerente(int hora, Interfaz interfaz, Jefe_Mesoneros jefeM, Semaphore semaforoJM, Semaphore semaforoE, Semaphore semaforoPF, Semaphore semaforoP, Semaphore racesemaphore) {
         this.hora = hora;
         this.interfaz = interfaz;
         this.jefeM = jefeM;
@@ -36,7 +36,7 @@ public class Gerente extends Thread {
         this.semaforoPF = semaforoPF;
         this.semaforoP = semaforoP;
         this.racesemaphore = racesemaphore;
-        
+
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Gerente extends Thread {
                 }
                 interfaz.getjTextField10().setText("Leyendo");
                 try {
-                    Thread.sleep((long) (hora * 0.1 * 10000));
+                    Thread.sleep((long) (this.hora * 0.1 * 1000));
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -62,8 +62,8 @@ public class Gerente extends Thread {
                     Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                if ((jefeM.getContador() == 0) && (interfaz.getjTextField6().getText() != "0")) {
-                    
+                if ((jefeM.getContador() == 0) && (interfaz.getjTextField6().getText() != "0") && jefeM.isPuedeDespachar() == true) {
+
                     try {
                         semaforoE.acquire();
                     } catch (InterruptedException ex) {
@@ -84,10 +84,11 @@ public class Gerente extends Thread {
 
                     interfaz.getjTextField10().setText("Despachando");
                     try {
-                        Thread.sleep((long) (hora * 0.0625 * 1000));
+                        Thread.sleep((long) (this.hora * 0.0625 * 1000));
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    jefeM.setPuedeDespachar(false);
                     semaforoE.release();
                     semaforoPF.release();
                     semaforoP.release();
@@ -97,7 +98,7 @@ public class Gerente extends Thread {
                 semaforoJM.release();
 
                 interfaz.getjTextField10().setText("Descansando");
-                int rand = (int)(Math.random()*(200-45+1)+45);
+                int rand = (int) (Math.random() * (200 - 45 + 1) + 45);
 
                 try {
                     Thread.sleep(rand * 10);
@@ -113,10 +114,11 @@ public class Gerente extends Thread {
                         Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                    }while(ejecutando);
-                    }
+            } while (ejecutando);
+        }
     }
-        public boolean isEjecutando() {
+
+    public boolean isEjecutando() {
         return ejecutando;
     }
 

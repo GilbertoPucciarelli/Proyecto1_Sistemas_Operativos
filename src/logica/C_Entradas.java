@@ -18,10 +18,11 @@ public class C_Entradas extends Cocineros {
 
     private Mesones mesones;
     private Semaphore semaforoE;
+    private int hora;
 
-    public C_Entradas(Interfaz interfaz, Mesones mesones, Semaphore semaforoE) {
+    public C_Entradas(int hora,Interfaz interfaz, Mesones mesones, Semaphore semaforoE) {
         super();
-        hora = (float) 0.25;
+        this.hora = hora;
         this.mesones = mesones;
         cantidadInicial = 1;
         ejecutando = false;
@@ -43,7 +44,7 @@ public class C_Entradas extends Cocineros {
                     } catch (InterruptedException ex) {
                         Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
+                }               
 
                 //COMPROBAR SI YA SE ALCANZO EL LIMITE DE PLATOS PRODUCIDOS
                 if (mesones.getPlatosProducidos() != mesones.getCapacidad()) {
@@ -70,15 +71,15 @@ public class C_Entradas extends Cocineros {
                     semaforoE.release();
                 }
 
+                System.out.println("Cocinando entradas...");
                 try {
-                    Thread.sleep((long) (hora * 10000));
-                    System.out.println("Cocinando entradas...");
+                    Thread.sleep((long) (this.hora * 0.25 * 1000));
                 } catch (InterruptedException ex) {
                     Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
 
                 }
 
-            } while (ejecutando);
+            } while (ejecutando && cantidadInicial != 0);
 
         }
     }
@@ -87,7 +88,7 @@ public class C_Entradas extends Cocineros {
         return hora;
     }
 
-    public void setHora(float hora) {
+    public void setHora(int hora) {
         this.hora = hora;
     }
 
@@ -106,5 +107,4 @@ public class C_Entradas extends Cocineros {
     public void setEjecutando(boolean ejecutando) {
         this.ejecutando = ejecutando;
     }
-
 }

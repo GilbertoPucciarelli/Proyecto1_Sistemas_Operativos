@@ -56,6 +56,7 @@ public class Aplicacion extends Thread {
     private Semaphore semaforoP;
     private Semaphore semaforoJM;
     private Semaphore racesemaphore;
+    private boolean error = false; 
 
     //CONSTRUCTOR
     public Aplicacion(Interfaz interfaz) {
@@ -240,32 +241,116 @@ public class Aplicacion extends Thread {
         this.interfaz = interfaz;
     }
 
+    public Mesones getMesonesEntradas() {
+        return mesonesEntradas;
+    }
+
+    public void setMesonesEntradas(Mesones mesonesEntradas) {
+        this.mesonesEntradas = mesonesEntradas;
+    }
+
+    public Mesones getMesonesPlatosFuertes() {
+        return mesonesPlatosFuertes;
+    }
+
+    public void setMesonesPlatosFuertes(Mesones mesonesPlatosFuertes) {
+        this.mesonesPlatosFuertes = mesonesPlatosFuertes;
+    }
+
+    public Mesones getMesonesPostres() {
+        return mesonesPostres;
+    }
+
+    public void setMesonesPostres(Mesones mesonesPostres) {
+        this.mesonesPostres = mesonesPostres;
+    }
+
+    public Mesoneros[] getMesoneros() {
+        return Mesoneros;
+    }
+
+    public void setMesoneros(Mesoneros[] Mesoneros) {
+        this.Mesoneros = Mesoneros;
+    }
+
+    public Semaphore getSemaforoE() {
+        return semaforoE;
+    }
+
+    public void setSemaforoE(Semaphore semaforoE) {
+        this.semaforoE = semaforoE;
+    }
+
+    public Semaphore getSemaforoPF() {
+        return semaforoPF;
+    }
+
+    public void setSemaforoPF(Semaphore semaforoPF) {
+        this.semaforoPF = semaforoPF;
+    }
+
+    public Semaphore getSemaforoP() {
+        return semaforoP;
+    }
+
+    public void setSemaforoP(Semaphore semaforoP) {
+        this.semaforoP = semaforoP;
+    }
+
+    public Semaphore getSemaforoJM() {
+        return semaforoJM;
+    }
+
+    public void setSemaforoJM(Semaphore semaforoJM) {
+        this.semaforoJM = semaforoJM;
+    }
+
+    public Semaphore getRacesemaphore() {
+        return racesemaphore;
+    }
+
+    public void setRacesemaphore(Semaphore racesemaphore) {
+        this.racesemaphore = racesemaphore;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
+    
+    
+
     @Override
     public void run() {
         gerente.start();
         jefeMesoneros.start();
 
-        for (int i = 0; i < maximoEntradas; i++) {
+        for (int i = 0; i < inicialEntradas; i++) {
             C_Entradas[i].start();
         }
 
-        for (int i = 0; i < maximoFuertes; i++) {
+        for (int i = 0; i < inicialFuertes; i++) {
             C_Platos_Fuertes[i].start();
         }
 
-        for (int i = 0; i < maximoPostres; i++) {
+        for (int i = 0; i < inicialPostres; i++) {
             C_Postres[i].start();
         }
 
-        for (int i = 0; i < maximoMesoneros; i++) {
+        for (int i = 0; i < inicialMesoneros; i++) {
             Mesoneros[i].start();
         }
-        
+
+        iniciado = true;
+
         synchronized (this) {
             do {
                 try {
 
-                    Thread.sleep(horas * 10000);
+                    Thread.sleep(horas * 1000);
 
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Aplicacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -294,15 +379,15 @@ public class Aplicacion extends Thread {
             synchronized (this) {
                 notify();
             }
-            
+
             synchronized (gerente) {
                 gerente.setEjecutando(true);
                 gerente.notify();
             }
-            
+
             synchronized (jefeMesoneros) {
                 jefeMesoneros.setEjecutando(true);
-                notify();
+                jefeMesoneros.notify();
             }
 
             for (int i = 0; i < inicialMesoneros; i++) {
@@ -339,32 +424,93 @@ public class Aplicacion extends Thread {
         FileReader f = new FileReader(archivo.getAbsolutePath());
         BufferedReader b = new BufferedReader(f);
         b.readLine();
-        horas = parseInt(b.readLine());
+        try {
+            horas = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        capacidadEntradas = parseInt(b.readLine());
+                try {
+            capacidadEntradas = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        capacidadFuertes = parseInt(b.readLine());
+                try {
+            capacidadFuertes = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        capacidadPostres = parseInt(b.readLine());
+                try {
+            capacidadPostres = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        inicialEntradas = parseInt(b.readLine());
+               try {
+            inicialEntradas = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        maximoEntradas = parseInt(b.readLine());
+               try {
+            maximoEntradas = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        inicialFuertes = parseInt(b.readLine());
+               try {
+            inicialFuertes = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        maximoFuertes = parseInt(b.readLine());
+               try {
+            maximoFuertes = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        inicialPostres = parseInt(b.readLine());
+               try {
+            inicialPostres = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        maximoPostres = parseInt(b.readLine());
+               try {
+            maximoPostres = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        inicialMesoneros = parseInt(b.readLine());
+               try {
+            inicialMesoneros = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.readLine();
-        maximoMesoneros = parseInt(b.readLine());
+               try {
+            maximoMesoneros = parseInt(b.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dato introducido no es un numero");
+            error = true;
+        }
         b.close();
-
-        jefeMesoneros = new Jefe_Mesoneros(interfaz, horas, semaforoJM);
+        
+        if(error == false){
+        jefeMesoneros = new Jefe_Mesoneros(horas, interfaz, horas, semaforoJM);
         jefeMesoneros.setEjecutando(true);
         gerente = new Gerente(horas, interfaz, jefeMesoneros, semaforoJM, semaforoE, semaforoPF, semaforoP, racesemaphore);
         gerente.setEjecutando(true);
@@ -376,21 +522,20 @@ public class Aplicacion extends Thread {
         mesonesPostres = new Mesones(capacidadPostres);
         Mesoneros = new Mesoneros[maximoMesoneros];
 
-
-        for (int i = 0; i < maximoMesoneros; i++) {
-            Mesoneros[i] = new Mesoneros(interfaz, semaforoE, semaforoPF, semaforoP, racesemaphore, mesonesEntradas, mesonesPlatosFuertes, mesonesPostres);
+        for (int i = 0; i < inicialMesoneros; i++) {
+            Mesoneros[i] = new Mesoneros(horas, interfaz, semaforoE, semaforoPF, semaforoP, racesemaphore, mesonesEntradas, mesonesPlatosFuertes, mesonesPostres);
         }
 
-        for (int i = 0; i < maximoEntradas; i++) {
-            C_Entradas[i] = new C_Entradas(interfaz, mesonesEntradas, semaforoE);
+        for (int i = 0; i < inicialEntradas; i++) {
+            C_Entradas[i] = new C_Entradas(horas, interfaz, mesonesEntradas, semaforoE);
         }
 
-        for (int i = 0; i < maximoFuertes; i++) {
-            C_Platos_Fuertes[i] = new C_Platos_Fuertes(interfaz, mesonesPlatosFuertes, semaforoPF);
+        for (int i = 0; i < inicialFuertes; i++) {
+            C_Platos_Fuertes[i] = new C_Platos_Fuertes(horas, interfaz, mesonesPlatosFuertes, semaforoPF);
         }
 
-        for (int i = 0; i < maximoPostres; i++) {
-            C_Postres[i] = new C_Postres(interfaz, mesonesPostres, semaforoP);
+        for (int i = 0; i < inicialPostres; i++) {
+            C_Postres[i] = new C_Postres(horas, interfaz, mesonesPostres, semaforoP);
         }
 
         for (int i = 0; i < inicialMesoneros; i++) {
@@ -408,5 +553,7 @@ public class Aplicacion extends Thread {
         for (int i = 0; i < inicialPostres; i++) {
             C_Postres[i].setEjecutando(true);
         }
+        }
+
     }
 }

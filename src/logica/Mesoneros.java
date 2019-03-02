@@ -16,10 +16,10 @@ import java.util.logging.Logger;
  */
 public class Mesoneros extends Thread {
 
-    private float hora;
+    private int hora;
     private int ordenes;
     private int cantidadInicial;
-    private boolean ejecutando;
+    private volatile boolean ejecutando;
     Interfaz interfaz;
     private Semaphore semaforoE;
     private Semaphore semaforoPF;
@@ -29,8 +29,8 @@ public class Mesoneros extends Thread {
     private Mesones platosfuertes;
     private Mesones platospostres;
 
-    public Mesoneros(Interfaz interfaz, Semaphore semaforoE, Semaphore semaforoPF, Semaphore semaforoP, Semaphore racesemaphore, Mesones platosentrada, Mesones platosfuertes, Mesones platospostres) {
-        this.hora = (float) 0.15;
+    public Mesoneros(int hora,Interfaz interfaz, Semaphore semaforoE, Semaphore semaforoPF, Semaphore semaforoP, Semaphore racesemaphore, Mesones platosentrada, Mesones platosfuertes, Mesones platospostres) {
+        this.hora = hora;
         this.ordenes = 0;
         this.cantidadInicial = 0;
         this.ejecutando = false;
@@ -58,9 +58,9 @@ public class Mesoneros extends Thread {
                         Logger.getLogger(Mesoneros.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                System.out.println("Entro");
+
                 if ((platosentrada.getPlatosProducidos() > 3) && (platosfuertes.getPlatosProducidos() > 2) && (platospostres.getPlatosProducidos() > 1)) {
-                    System.out.println("Mesonero: Verficando");
+                    System.out.println("Mesonero Sirviendo");
                     try {
                         racesemaphore.acquire();
                     } catch (InterruptedException ex) {
@@ -143,8 +143,10 @@ public class Mesoneros extends Thread {
                     String ordenes = Integer.toString(venta);
                     interfaz.getjTextField6().setText(ordenes);
                 }
+                
+                System.out.println("Mesonero Verificando");
                 try {
-                    Thread.sleep((long) (hora * 10000));
+                    Thread.sleep((long) (this.hora * 0.15 * 1000));
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Mesoneros.class.getName()).log(Level.SEVERE, null, ex);
                 }

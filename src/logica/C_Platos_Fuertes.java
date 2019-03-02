@@ -18,10 +18,11 @@ public class C_Platos_Fuertes extends Cocineros {
 
     private Mesones mesones;
     private Semaphore semaforoPF;
+    private int horas;
 
-    public C_Platos_Fuertes(Interfaz interfaz, Mesones mesones, Semaphore semaforoPF) {
+    public C_Platos_Fuertes(int horas,Interfaz interfaz, Mesones mesones, Semaphore semaforoPF) {
         super();
-        hora = (float) 0.33;
+        this.horas = horas;
         this.mesones = mesones;
         cantidadInicial = 2;
         ejecutando = false;
@@ -69,10 +70,9 @@ public class C_Platos_Fuertes extends Cocineros {
                     }
                     semaforoPF.release();
                 }
-
+                System.out.println("Cocinando platos fuertes...");
                 try {
-                    Thread.sleep((long) (hora * 10000));
-                    System.out.println("Cocinando platos fuertes...");
+                    Thread.sleep((long) (this.horas * 0.33 * 1000));
                 } catch (InterruptedException ex) {
                     Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                 }

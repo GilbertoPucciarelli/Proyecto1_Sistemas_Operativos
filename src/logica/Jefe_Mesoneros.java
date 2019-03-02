@@ -17,15 +17,16 @@ import java.util.logging.Logger;
 public class Jefe_Mesoneros extends Thread {
 
     private int contador;
-    private float hora;
-    private boolean ejecutando;
+    private int hora;
+    private volatile boolean ejecutando;
     Interfaz interfaz;
     private Semaphore semaforoJM;
     private int contadorinicial;
-
-    public Jefe_Mesoneros(Interfaz interfaz, int contador, Semaphore semaforoJM) {
+    private volatile boolean puedeDespachar = true;
+    
+    public Jefe_Mesoneros(int hora,Interfaz interfaz, int contador, Semaphore semaforoJM) {
         this.contador = contador;
-        this.hora = (float) 0.05;
+        this.hora = hora;
         this.interfaz = interfaz;
         this.semaforoJM = semaforoJM;
         this.contadorinicial = contador;
@@ -53,7 +54,7 @@ public class Jefe_Mesoneros extends Thread {
 
                     try {
 
-                        Thread.sleep((long) (hora * 10000));
+                        Thread.sleep((long) (this.hora * 1000 * 0.05));
 
                     } catch (InterruptedException ex) {
 
@@ -62,6 +63,7 @@ public class Jefe_Mesoneros extends Thread {
 
                     contador = contadorinicial;
                     interfaz.getjTextFieldHoras().setText(Integer.toString(contador));
+                    this.puedeDespachar = true;
 
                 } else {
 
@@ -70,7 +72,7 @@ public class Jefe_Mesoneros extends Thread {
 
                     try {
 
-                        Thread.sleep((long) (hora * 10000));
+                        Thread.sleep((long) (this.hora * 1000 * 0.05));
 
                     } catch (InterruptedException ex) {
 
@@ -86,7 +88,7 @@ public class Jefe_Mesoneros extends Thread {
 
                 try {
 
-                    Thread.sleep((long) (hora * 10000 * 0.95));
+                    Thread.sleep((long) (this.hora * 1000 * 0.95));
 
                 } catch (InterruptedException ex) {
 
@@ -121,10 +123,6 @@ public class Jefe_Mesoneros extends Thread {
         return hora;
     }
 
-    public void setHora(float hora) {
-        this.hora = hora;
-    }
-
     public boolean isEjecutando() {
         return ejecutando;
     }
@@ -139,5 +137,13 @@ public class Jefe_Mesoneros extends Thread {
 
     public void setInterfaz(Interfaz interfaz) {
         this.interfaz = interfaz;
+    }
+    
+        public boolean isPuedeDespachar() {
+        return puedeDespachar;
+    }
+
+    public void setPuedeDespachar(boolean puedeDespachar) {
+        this.puedeDespachar = puedeDespachar;
     }
 }

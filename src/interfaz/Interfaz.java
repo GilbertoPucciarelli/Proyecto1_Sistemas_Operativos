@@ -10,6 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextField;
 import logica.Aplicacion;
+import logica.C_Entradas;
+import logica.C_Platos_Fuertes;
+import logica.C_Postres;
+import logica.Mesoneros;
 
 /**
  *
@@ -38,7 +42,6 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jButton2.setEnabled(false);
-        jButton3.setEnabled(false);
         jButton4.setEnabled(false);
         jButton5.setEnabled(false);
         jButton6.setEnabled(false);
@@ -60,7 +63,6 @@ public class Interfaz extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -108,13 +110,6 @@ public class Interfaz extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Detener Simulación");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -304,8 +299,6 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -413,9 +406,7 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(jLabel11)
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3))
+                        .addComponent(jButton2)
                         .addGap(109, 109, 109)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -457,7 +448,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     //BOTON SIMULAR 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        jButton2.setEnabled(false);
         aplicacion.setEjecutando(true);
 
         try {
@@ -468,11 +459,8 @@ public class Interfaz extends javax.swing.JFrame {
         }
 
         aplicacion.setIniciado(true);
+        System.out.println("Cocineros de entradas: " + aplicacion.getC_Entradas().length);
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextFieldCocinerosEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCocinerosEntradasActionPerformed
         // TODO add your handling code here:
@@ -617,6 +605,7 @@ public class Interfaz extends javax.swing.JFrame {
         }
 
         //VALIDACIONES
+        if(aplicacion.isError() == false){
         if (aplicacion.getHoras() <= 0) {
             cantidad1 = false;
         }
@@ -633,13 +622,13 @@ public class Interfaz extends javax.swing.JFrame {
             cantidad1 = false;
         }
 
-        if (aplicacion.getInicialEntradas() < 1 || aplicacion.getInicialEntradas() > 3) {
+        if (aplicacion.getInicialEntradas() != 1) {
             cantidad1 = false;
         }
-        if (aplicacion.getInicialFuertes() < 2 || aplicacion.getInicialFuertes() > 4) {
+        if (aplicacion.getInicialFuertes() != 2) {
             cantidad1 = false;
         }
-        if (aplicacion.getInicialPostres() < 0 || aplicacion.getInicialPostres() > 2) {
+        if (aplicacion.getInicialPostres() != 0) {
             cantidad1 = false;
         }
         if (aplicacion.getMaximoEntradas() < 1 || aplicacion.getMaximoEntradas() > 3) {
@@ -651,10 +640,10 @@ public class Interfaz extends javax.swing.JFrame {
         if (aplicacion.getMaximoPostres() < 0 || aplicacion.getMaximoPostres() > 2) {
             cantidad1 = false;
         }
-        if (aplicacion.getInicialMesoneros() < 0 || aplicacion.getInicialMesoneros() > 6) {
+        if (aplicacion.getInicialMesoneros() != 2) {
             cantidad1 = false;
         }
-        if (aplicacion.getMaximoMesoneros() < 0 || aplicacion.getMaximoMesoneros() > 6) {
+        if (aplicacion.getMaximoMesoneros() < 2 || aplicacion.getMaximoMesoneros() > 6) {
             cantidad1 = false;
         }
 
@@ -670,14 +659,17 @@ public class Interfaz extends javax.swing.JFrame {
         if (aplicacion.getInicialMesoneros() > aplicacion.getMaximoMesoneros()) {
             cantidad2 = false;
         }
+        }
+        
 
-        if (cantidad1 == false || cantidad2 == false) {
+        if (cantidad1 == false || cantidad2 == false || aplicacion.isError()) {
             if (cantidad1 == false) {
                 System.out.println("Datos introducidos incorrectos");
             }
             if (cantidad2 == false) {
                 System.out.println("Cantidad inicial mayor a cantidad final");
             }
+            jButton1.setEnabled(false);
         } else {
 
             jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
@@ -690,7 +682,6 @@ public class Interfaz extends javax.swing.JFrame {
                 jButton9.setEnabled(true);
             }
             jButton2.setEnabled(true);
-            jButton3.setEnabled(true);
             if (aplicacion.getInicialEntradas() != aplicacion.getMaximoEntradas()) {
                 jButton4.setEnabled(true);
             }
@@ -709,100 +700,246 @@ public class Interfaz extends javax.swing.JFrame {
                 jButton11.setEnabled(true);
             }
             jButton1.setEnabled(false);
+            jTextField6.setText("0");
+            jTextField4.setText("0");
+            jTextField7.setText("0");
+            jTextField8.setText("0");
         }
-        jTextField6.setText("0");
-        jTextField4.setText("0");
-        jTextField7.setText("0");
-        jTextField8.setText("0");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //BOTON CONTRATAR COCINEROS ENTRADAS
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        aplicacion.setInicialEntradas(aplicacion.getInicialEntradas() + 1);
-        jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
+        boolean contratado = false;
+
+        if (aplicacion.getInicialEntradas() < aplicacion.getMaximoEntradas()) {
+
+            aplicacion.setInicialEntradas(aplicacion.getInicialEntradas() + 1);
+            jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
+        }
 
         if (aplicacion.getInicialEntradas() == aplicacion.getMaximoEntradas()) {
             jButton4.setEnabled(false);
         }
+
+        for (int i = 0; i < aplicacion.getInicialEntradas(); i++) {
+
+            if (aplicacion.getC_Entradas()[i] == null && !contratado) {
+
+                aplicacion.getC_Entradas()[i] = new C_Entradas(aplicacion.getHoras(), aplicacion.getInterfaz(), aplicacion.getMesonesEntradas(), aplicacion.getSemaforoE());
+                aplicacion.getC_Entradas()[i].setEjecutando(true);
+                aplicacion.getC_Entradas()[i].start();
+                contratado = true;
+                break;
+            }
+        }
+
         jButton7.setEnabled(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     //BOTON CONTRATAR COCINEROS PLATOS FUERTES
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        aplicacion.setInicialFuertes(aplicacion.getInicialFuertes() + 1);
-        jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
+        boolean contratado = false;
+
+        if (aplicacion.getInicialFuertes() < aplicacion.getMaximoFuertes()) {
+
+            aplicacion.setInicialFuertes(aplicacion.getInicialFuertes() + 1);
+            jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
+        }
 
         if (aplicacion.getInicialFuertes() == aplicacion.getMaximoFuertes()) {
             jButton5.setEnabled(false);
         }
+
+        for (int i = 0; i < aplicacion.getInicialFuertes(); i++) {
+
+            if (aplicacion.getC_Platos_Fuertes()[i] == null && !contratado) {
+
+                aplicacion.getC_Platos_Fuertes()[i] = new C_Platos_Fuertes(aplicacion.getHoras(), aplicacion.getInterfaz(), aplicacion.getMesonesPlatosFuertes(), aplicacion.getSemaforoPF());
+                aplicacion.getC_Platos_Fuertes()[i].setEjecutando(true);
+                aplicacion.getC_Platos_Fuertes()[i].start();
+                contratado = true;
+                break;
+            }
+        }
+
         jButton8.setEnabled(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     //BOTON CONTRATAR COCINEROS POSTRES
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        aplicacion.setInicialPostres(aplicacion.getInicialPostres() + 1);
-        jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
+        boolean contratado = false;
+
+        if (aplicacion.getInicialPostres() < aplicacion.getMaximoPostres()) {
+
+            aplicacion.setInicialPostres(aplicacion.getInicialPostres() + 1);
+            jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
+        }
+
         if (aplicacion.getInicialPostres() == aplicacion.getMaximoPostres()) {
             jButton6.setEnabled(false);
         }
+
+        for (int i = 0; i < aplicacion.getInicialPostres(); i++) {
+
+            if (aplicacion.getC_Postres()[i] == null && !contratado) {
+
+                aplicacion.getC_Postres()[i] = new C_Postres(aplicacion.getHoras(), aplicacion.getInterfaz(), aplicacion.getMesonesPostres(), aplicacion.getSemaforoP());
+                aplicacion.getC_Postres()[i].setEjecutando(true);
+                aplicacion.getC_Postres()[i].start();
+                contratado = true;
+                break;
+            }
+        }
+
         jButton9.setEnabled(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     //BOTON DESPEDIR COCINEROS ENTRADAS
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        aplicacion.setInicialEntradas(aplicacion.getInicialEntradas() - 1);
-        jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
+        for (int i = 0; i < aplicacion.getC_Entradas().length; i++) {
+
+            boolean despedido = false;
+
+            if (aplicacion.getC_Entradas()[i] != null && despedido == false) {
+
+                aplicacion.getC_Entradas()[i].setEjecutando(false);
+                aplicacion.getC_Entradas()[i] = null;
+                despedido = true;
+                break;
+            }
+        }
+
+        if (aplicacion.getInicialEntradas() > 0) {
+
+            aplicacion.setInicialEntradas(aplicacion.getInicialEntradas() - 1);
+            jTextFieldCocinerosEntradas.setText(String.valueOf(aplicacion.getInicialEntradas()));
+        }
+
         if (aplicacion.getInicialEntradas() == 0) {
             jButton7.setEnabled(false);
         }
+
         jButton4.setEnabled(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     //BOTON DESPEDIR COCINEROS PLATOS FUERTES
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
 
-        aplicacion.setInicialFuertes(aplicacion.getInicialFuertes() - 1);
-        jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
+        for (int i = 0; i < aplicacion.getC_Platos_Fuertes().length; i++) {
+
+            boolean despedido = false;
+
+            if (aplicacion.getC_Platos_Fuertes()[i] != null && despedido == false) {
+
+                aplicacion.getC_Platos_Fuertes()[i].setEjecutando(false);
+                aplicacion.getC_Platos_Fuertes()[i] = null;
+                despedido = true;
+                break;
+            }
+        }
+
+        if (aplicacion.getInicialFuertes() > 0) {
+
+            aplicacion.setInicialFuertes(aplicacion.getInicialFuertes() - 1);
+            jTextFieldCocinerosFuertes.setText(String.valueOf(aplicacion.getInicialFuertes()));
+        }
+
         if (aplicacion.getInicialFuertes() == 0) {
             jButton8.setEnabled(false);
         }
+
         jButton5.setEnabled(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     //BOTON DESPEDIR COCINEROS POSTRES
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 
-        aplicacion.setInicialPostres(aplicacion.getInicialPostres() - 1);
-        jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
+        for (int i = 0; i < aplicacion.getC_Postres().length; i++) {
+
+            boolean despedido = false;
+
+            if (aplicacion.getC_Postres()[i] != null && despedido == false) {
+
+                aplicacion.getC_Postres()[i].setEjecutando(false);
+                aplicacion.getC_Postres()[i] = null;
+                despedido = true;
+                break;
+            }
+        }
+
+        if (aplicacion.getInicialPostres() > 0) {
+
+            aplicacion.setInicialPostres(aplicacion.getInicialPostres() - 1);
+            jTextFieldCocinerosPostres.setText(String.valueOf(aplicacion.getInicialPostres()));
+        }
+
         if (aplicacion.getInicialPostres() == 0) {
             jButton9.setEnabled(false);
         }
+
         jButton6.setEnabled(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     //BOTON CONTRATAR MESONEROS
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
 
-        aplicacion.setInicialMesoneros(aplicacion.getInicialMesoneros() + 1);
-        jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
+        boolean contratado = false;
+
+        if (aplicacion.getInicialMesoneros() < aplicacion.getMaximoMesoneros()) {
+
+            aplicacion.setInicialMesoneros(aplicacion.getInicialMesoneros() + 1);
+            jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
+        }
+
         if (aplicacion.getInicialMesoneros() == aplicacion.getMaximoMesoneros()) {
             jButton10.setEnabled(false);
         }
+
+        for (int i = 0; i < aplicacion.getInicialMesoneros(); i++) {
+
+            if (aplicacion.getMesoneros()[i] == null && !contratado) {
+
+                aplicacion.getMesoneros()[i] = new Mesoneros(aplicacion.getHoras(), aplicacion.getInterfaz(), aplicacion.getSemaforoE(), aplicacion.getSemaforoPF(), aplicacion.getSemaforoP(), aplicacion.getRacesemaphore(), aplicacion.getMesonesEntradas(), aplicacion.getMesonesPlatosFuertes(), aplicacion.getMesonesPostres());
+                aplicacion.getMesoneros()[i].setEjecutando(true);
+                aplicacion.getMesoneros()[i].start();
+                contratado = true;
+                break;
+            }
+        }
+
         jButton11.setEnabled(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     //BOTON DESPEDIR MESONEROS
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 
-        aplicacion.setInicialMesoneros(aplicacion.getInicialMesoneros() - 1);
-        jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
+        for (int i = 0; i < aplicacion.getMesoneros().length; i++) {
+
+            boolean despedido = false;
+
+            if (aplicacion.getMesoneros()[i] != null && despedido == false) {
+
+                aplicacion.getMesoneros()[i].setEjecutando(false);
+                aplicacion.getMesoneros()[i] = null;
+                despedido = true;
+                break;
+            }
+        }
+
+        if (aplicacion.getInicialMesoneros()> 0) {
+
+            aplicacion.setInicialMesoneros(aplicacion.getInicialMesoneros() - 1);
+            jTextFieldMesoneros.setText(String.valueOf(aplicacion.getInicialMesoneros()));
+        }
+
         if (aplicacion.getInicialMesoneros() == 0) {
             jButton11.setEnabled(false);
         }
+
         jButton10.setEnabled(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -846,7 +983,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

@@ -15,10 +15,10 @@ Cantidad inicial de cocineros de platos fuertes:
 Cantidad máxima de cocineros de platos fuertes:
 4
 Cantidad inicial de cocineros de postres:
-1
+0
 Cantidad máxima de cocineros de postres:
 2
 Cantidad inicial de mesoneros:
-1
+2
 Cantidad máxima de mesoneros: 
 6

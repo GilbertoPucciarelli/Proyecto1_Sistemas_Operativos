@@ -18,10 +18,11 @@ public class C_Postres extends Cocineros {
 
     private Mesones mesones;
     private Semaphore semaforoP;
+    private int horas;
 
-    public C_Postres(Interfaz interfaz, Mesones mesones, Semaphore semaforoP) {
+    public C_Postres(int horas,Interfaz interfaz, Mesones mesones, Semaphore semaforoP) {
         super();
-        hora = (float) 0.30;
+        this.horas = horas;
         this.mesones = mesones;
         cantidadInicial = 0;
         ejecutando = false;
@@ -61,16 +62,15 @@ public class C_Postres extends Cocineros {
                             mesones.getMesones()[i] = 1;
                             mesones.setPlatosProducidos(mesones.getPlatosProducidos() + 1);
                             interfaz.getjTextField8().setText(Integer.toString(mesones.getPlatosProducidos()));
-
+                            
                             break;
                         }
                     }
                     semaforoP.release();
                 }
-
+                System.out.println("Cocinando postres...");
                 try {
-                    Thread.sleep((long) (hora * 10000));
-                    System.out.println("Cocinando postres...");
+                    Thread.sleep((long) (this.horas * 0.30 * 1000));
                 } catch (InterruptedException ex) {
                     Logger.getLogger(C_Entradas.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -78,14 +78,6 @@ public class C_Postres extends Cocineros {
             } while (ejecutando);
 
         }
-    }
-
-    public float getHora() {
-        return hora;
-    }
-
-    public void setHora(float hora) {
-        this.hora = hora;
     }
 
     public int getCantidadInicial() {
